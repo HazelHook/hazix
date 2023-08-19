@@ -1,0 +1,5 @@
+export { AccordionRoot as Root, type AccordionRootProps as RootProps } from "./accordion-root"
+export { AccordionHeader as Header, type AccordionHeaderProps as HeaderProps } from "./accordion-header"
+export { AccordionItem as Item, type AccordionItemProps as ItemProps } from "./accordion-item"
+export { AccordionTrigger as Trigger, type AccordionTriggerProps as TriggerProps } from "./accordion-trigger"
+export { AccordionContent as Content, type AccordionContentProps as ContentProps } from "./accordion-content"
