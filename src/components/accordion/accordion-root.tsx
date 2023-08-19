@@ -9,7 +9,7 @@ import {
 	useTask$,
 	useVisibleTask$,
 } from "@builder.io/qwik"
-import { type AccordionRootContext, type AccordionType, accordionRootContextId } from "./accordion.context"
+import { type AccordionRootContext, type AccordionType, accordionRootContextId } from "./accordion-context"
 
 export type AccordionRootProps = {
 	type?: AccordionType

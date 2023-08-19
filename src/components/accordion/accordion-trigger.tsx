@@ -11,7 +11,7 @@ import {
 } from "@builder.io/qwik"
 
 import { KeyCode } from "../../utils"
-import { accordionItemContextId, accordionRootContextId } from "./accordion.context"
+import { accordionItemContextId, accordionRootContextId } from "./accordion-context"
 
 const accordionPreventedKeys = [
 	KeyCode.Home,

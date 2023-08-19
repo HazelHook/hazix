@@ -10,7 +10,7 @@ import {
 	type QwikIntrinsicElements,
 } from "@builder.io/qwik"
 
-import { accordionItemContextId, accordionRootContextId } from "./accordion.context"
+import { accordionItemContextId, accordionRootContextId } from "./accordion-context"
 
 export type AccordionContentProps = QwikIntrinsicElements["div"]
 

@@ -1,6 +1,6 @@
 import { component$, Slot, useContextProvider, useSignal, type QwikIntrinsicElements, useId } from "@builder.io/qwik"
 
-import { type AccordionItemContext, accordionItemContextId } from "./accordion.context"
+import { type AccordionItemContext, accordionItemContextId } from "./accordion-context"
 
 export type AccordionItemProps = {
 	defaultValue?: boolean
