@@ -1,9 +1,8 @@
 import { component$ } from "@builder.io/qwik";
-import { Logo } from "./components/logo/logo";
-import * as Checkbox from "./components/checkbox";
+import { Logo } from "components/logo/logo";
+import * as Checkbox from "components/checkbox";
 
 export const Showcase = component$(() => {
-
   return (
     <div>
       <Logo />

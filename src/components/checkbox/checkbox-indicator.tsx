@@ -1,22 +1,21 @@
-import {
-  QwikIntrinsicElements,
-  Slot,
-  component$,
-} from "@builder.io/qwik";
+import { QwikIntrinsicElements, Slot, component$ } from "@builder.io/qwik";
 import { useCheckboxContext } from "./checkbox-context";
 
-export type IndicatorProps = QwikIntrinsicElements["span"];
+export const Indicator = component$<QwikIntrinsicElements["span"]>((props) => {
+  const { checked } = useCheckboxContext();
 
-export const Indicator = component$<IndicatorProps>((props) => {
-  const context = useCheckboxContext()
+  console.log("Indicator", checked.value);
 
-  return (
-    <span
-      data-state={context.checked.value}
-      {...props}
-      class={`pointer-events-none ${props.class}`}
-    >
-      <Slot />
-    </span>
-  );
+  if (checked.value)
+    return (
+      <span
+        data-state={checked.value}
+        class={`pointer-events-none ${props.class}`}
+        {...props}
+      >
+        <Slot />
+      </span>
+    );
+
+  return <></>;
 });

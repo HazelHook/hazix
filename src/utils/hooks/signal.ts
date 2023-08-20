@@ -1,5 +1,5 @@
 import { Signal, useSignal } from "@builder.io/qwik";
-import { isSignal } from "./types";
+import { isSignal } from "utils/introspection";
 
 
 export function makeSignal<T>(value: T | Signal<T>): Signal<T> {

@@ -1,16 +1,31 @@
-import { Signal, createContextId, useContext } from "@builder.io/qwik"
-import { CheckedState } from "."
+import {
+  Signal,
+  createContextId,
+  useContext,
+  useContextProvider,
+  useStore,
+} from "@builder.io/qwik";
+import { CheckedState } from ".";
 
-export interface CheckboxRootContext {
-	checked: Signal<CheckedState>
-}
+export type CheckboxRootContext = {
+  checked: Signal<CheckedState>
+};
 
-const checkboxContextId = createContextId<CheckboxRootContext>("checkbox-root")
+const checkboxContextId = createContextId<CheckboxRootContext>("checkbox-root");
+
 export function useCheckboxContext() {
-	return useContext(checkboxContextId)
+  return useContext(checkboxContextId);
 }
-export function setupCheckboxContextProvider(checked: Signal<CheckedState>) {
-	return {
-		checked
-	}
+
+export function setupCheckboxContextProvider(
+  checked: Signal<CheckedState>
+) {
+  // eslint-disable-next-line qwik/use-method-usage
+  const store = useStore({
+    checked,
+  });
+  // eslint-disable-next-line qwik/use-method-usage
+  useContextProvider(checkboxContextId, store);
+
+  return store;
 }

@@ -9,16 +9,15 @@ import {
   Signal,
 } from "@builder.io/qwik";
 import { setupCheckboxContextProvider } from "./checkbox-context";
-import { makeSignal } from "../../utils/prop-signal";
+import { makeSignal } from "utils/hooks/signal";
 
-type CheckedState = boolean | "indeterminate";
+export type CheckedState = boolean | "indeterminate";
 export type RootProps = Omit<
   QwikIntrinsicElements["button"],
   "checked" | "defaultChecked"
 > & {
   defaultChecked?: CheckedState;
   checked?: Signal<CheckedState> | CheckedState;
-  onCheckedChange?: (checked: CheckedState) => void;
   required?: boolean;
 };
 
@@ -26,7 +25,6 @@ export const Root = component$<RootProps>((props) => {
   const {
     defaultChecked,
     checked: checkedProp,
-    onCheckedChange,
     disabled,
     value = "on",
     required,
@@ -35,8 +33,7 @@ export const Root = component$<RootProps>((props) => {
   const otherPropsTyped: QwikIntrinsicElements["button"] = otherProps;
   const ref = useSignal<HTMLButtonElement>();
 
-  const checked = makeSignal<CheckedState>(checkedProp ?? defaultChecked ?? false)
-  setupCheckboxContextProvider(checked);
+  const context = setupCheckboxContextProvider(makeSignal<CheckedState>(checkedProp ?? defaultChecked ?? false));
 
   return (
     <>
@@ -50,9 +47,9 @@ export const Root = component$<RootProps>((props) => {
         type="button"
         role="checkbox"
         ref={ref}
-        aria-checked={checked.value === "indeterminate" ? "mixed" : checked.value}
+        aria-checked={context.checked.value === "indeterminate" ? "mixed" : context.checked.value}
         aria-required={required}
-        data-state={getState(checked.value ?? false)}
+        data-state={getState(context.checked.value ?? false)}
         data-disabled={disabled ? "" : undefined}
         disabled={disabled}
         value={value}
@@ -68,15 +65,13 @@ export const Root = component$<RootProps>((props) => {
         ]}
         onClick$={[
           $((event: QwikMouseEvent) => {
-            checked.value =
-              checked.value === "indeterminate" ? true : !checked.value;
-            onCheckedChange?.(checked.value);
+            context.checked.value = context.checked.value === "indeterminate" ? true : !context.checked.value;
             event.stopPropagation();
           }),
           otherPropsTyped.onClick$,
         ]}
       >
-        {checked.value && <Slot />}
+        <Slot />
       </button>
     </>
   );
