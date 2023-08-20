@@ -4,8 +4,10 @@ import * as Accordion from "./components/accordion"
 
 import "./global.css"
 import { Toggle } from "./components/toggle"
+import { component$, useSignal } from "@builder.io/qwik"
 
-export default () => {
+export default component$(() => {
+	const pressed = useSignal(false)
 	return (
 		<>
 			<head>
@@ -28,11 +30,10 @@ export default () => {
 					</Accordion.Item>
 				</Accordion.Root>
 				<Toggle>Uncontrolled</Toggle>
-				<Toggle pressed={true} onChange$={(pressed) => console.log(pressed)}>
+				<Toggle pressed={pressed} onPressedChange$={(e) => pressed.value === e}>
 					Controlled
 				</Toggle>
-        
 			</body>
 		</>
 	)
-}
+})
