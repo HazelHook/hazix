@@ -6,9 +6,10 @@ import {
   QwikKeyboardEvent,
   useSignal,
   QwikMouseEvent,
-  useContextProvider,
+  Signal,
 } from "@builder.io/qwik";
-import { checkboxRootContextId } from "./checkbox-context";
+import { setupCheckboxContextProvider } from "./checkbox-context";
+import { makeSignal } from "../../utils/prop-signal";
 
 type CheckedState = boolean | "indeterminate";
 export type RootProps = Omit<
@@ -16,7 +17,7 @@ export type RootProps = Omit<
   "checked" | "defaultChecked"
 > & {
   defaultChecked?: CheckedState;
-  checked?: CheckedState;
+  checked?: Signal<CheckedState> | CheckedState;
   onCheckedChange?: (checked: CheckedState) => void;
   required?: boolean;
 };
@@ -32,15 +33,10 @@ export const Root = component$<RootProps>((props) => {
     ...otherProps
   } = props;
   const otherPropsTyped: QwikIntrinsicElements["button"] = otherProps;
-
-  const checked = useSignal<CheckedState>(
-    checkedProp ?? defaultChecked ?? false
-  );
   const ref = useSignal<HTMLButtonElement>();
 
-  useContextProvider(checkboxRootContextId, {
-    checked,
-  });
+  const checked = makeSignal<CheckedState>(checkedProp ?? defaultChecked ?? false)
+  setupCheckboxContextProvider(checked);
 
   return (
     <>
@@ -54,9 +50,9 @@ export const Root = component$<RootProps>((props) => {
         type="button"
         role="checkbox"
         ref={ref}
-        aria-checked={checkedProp === "indeterminate" ? "mixed" : checkedProp}
+        aria-checked={checked.value === "indeterminate" ? "mixed" : checked.value}
         aria-required={required}
-        data-state={getState(checkedProp ?? false)}
+        data-state={getState(checked.value ?? false)}
         data-disabled={disabled ? "" : undefined}
         disabled={disabled}
         value={value}
@@ -80,7 +76,7 @@ export const Root = component$<RootProps>((props) => {
           otherPropsTyped.onClick$,
         ]}
       >
-        {checked.value === true ? <Slot /> : null}
+        {checked.value && <Slot />}
       </button>
     </>
   );

@@ -2,18 +2,17 @@ import {
   QwikIntrinsicElements,
   Slot,
   component$,
-  useContext,
 } from "@builder.io/qwik";
-import { checkboxRootContextId } from "./checkbox-context";
+import { useCheckboxContext } from "./checkbox-context";
 
 export type IndicatorProps = QwikIntrinsicElements["span"];
 
 export const Indicator = component$<IndicatorProps>((props) => {
-  const context = useContext(checkboxRootContextId);
+  const context = useCheckboxContext()
 
   return (
     <span
-      data-state$={context.checked.value}
+      data-state={context.checked.value}
       {...props}
       class={`pointer-events-none ${props.class}`}
     >

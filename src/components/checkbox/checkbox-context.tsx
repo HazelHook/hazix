@@ -1,8 +1,16 @@
-import { Signal, createContextId } from "@builder.io/qwik"
+import { Signal, createContextId, useContext } from "@builder.io/qwik"
+import { CheckedState } from "."
 
 export interface CheckboxRootContext {
-	checked: Signal<boolean | "indeterminate">
+	checked: Signal<CheckedState>
 }
 
-
-export const checkboxRootContextId = createContextId<CheckboxRootContext>("checkbox-root")
+const checkboxContextId = createContextId<CheckboxRootContext>("checkbox-root")
+export function useCheckboxContext() {
+	return useContext(checkboxContextId)
+}
+export function setupCheckboxContextProvider(checked: Signal<CheckedState>) {
+	return {
+		checked
+	}
+}
