@@ -2,6 +2,7 @@ import { Logo } from "./components/logo/logo"
 
 import * as Accordion from "./components/accordion"
 import * as Avatar from "./components/avatar"
+import * as Tabs from "./components/tabs"
 
 import "./global.css"
 import { Toggle } from "./components/toggle"
@@ -59,6 +60,18 @@ export default component$(() => {
 							PD
 						</Avatar.Fallback>
 					</Avatar.Root>
+
+					<Tabs.Root>
+						<Tabs.List>
+							<Tabs.Tab>Tab 1</Tabs.Tab>
+							<Tabs.Tab>Tab 2</Tabs.Tab>
+							<Tabs.Tab>Tab 3</Tabs.Tab>
+						</Tabs.List>
+
+						<Tabs.Panel>Content 1</Tabs.Panel>
+						<Tabs.Panel>Content 2</Tabs.Panel>
+						<Tabs.Panel>Content 3</Tabs.Panel>
+					</Tabs.Root>
 				</div>
 			</body>
 		</>
