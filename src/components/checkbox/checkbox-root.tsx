@@ -36,11 +36,11 @@ export const Root = component$<RootProps>((props) => {
   const checked = useSignal<CheckedState>(
     checkedProp ?? defaultChecked ?? false
   );
+  const ref = useSignal<HTMLButtonElement>();
+
   useContextProvider(checkboxRootContextId, {
     checked,
   });
-  
-  const ref = useSignal<HTMLButtonElement>();
 
   return (
     <>
@@ -48,12 +48,7 @@ export const Root = component$<RootProps>((props) => {
         type="checkbox"
         aria-hidden
         tabIndex={-1}
-        style={{
-          position: "absolute",
-          pointerEvents: "none",
-          opacity: 0,
-          margin: 0,
-        }}
+        class={'absolute pointer-events-none opacity-0 m-0'}
       />
       <button
         type="button"

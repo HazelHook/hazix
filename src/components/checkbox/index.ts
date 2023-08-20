@@ -1,2 +1,2 @@
-export { Root, type RootProps } from "./checkbox-root";
+export { Root, type RootProps, type CheckedState } from "./checkbox-root";
 export { Indicator, type IndicatorProps } from "./checkbox-indicator";
