@@ -9,7 +9,7 @@ export default component$(() => {
         <meta charSet="utf-8" />
         <title>Qwik Blank App</title>
       </head>
-      <body class="bg-slate-700 container px-12 space-y-12">
+      <body class="bg-slate-700 p-0 m-0">
         <Showcase/>
       </body>
     </>

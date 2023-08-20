@@ -23,6 +23,7 @@ export type RootProps = Omit<
 
 export const Root = component$<RootProps>((props) => {
   const {
+    class: classProp,
     defaultChecked,
     checked: checkedProp,
     disabled,
@@ -54,6 +55,7 @@ export const Root = component$<RootProps>((props) => {
         disabled={disabled}
         value={value}
         {...otherPropsTyped}
+        class={`${classProp}`}
         onKeyDown$={[
           $((e: QwikKeyboardEvent) => {
             // According to WAI ARIA, Checkboxes don't activate on enter keypress
