@@ -8,7 +8,6 @@ import { component$, useSignal } from "@builder.io/qwik"
 
 export default component$(() => {
 	const pressed = useSignal(false)
-	console.log(pressed.value)
 	return (
 		<>
 			<head>
@@ -31,7 +30,7 @@ export default component$(() => {
 					</Accordion.Item>
 				</Accordion.Root>
 				<Toggle>Uncontrolled</Toggle>
-				<Toggle pressed={pressed.value} onPressedChange$={(e) => { pressed.value = e }}>
+				<Toggle pressed={pressed}>
 					Controlled
 				</Toggle>
 			</body>
