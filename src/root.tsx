@@ -1,6 +1,7 @@
 import * as Accordion from "./components/accordion"
 import * as Avatar from "./components/avatar"
 import * as Tabs from "./components/tabs"
+import * as Progress from "./components/progress"
 
 import "./global.css"
 import { Toggle } from "./components/toggle"
@@ -81,6 +82,20 @@ export default component$(() => {
 						/>
 					</AspectRatio>
 				</div>
+				<Progress.Root
+					class="relative overflow-hidden bg-zinc-700 rounded-full w-[300px] h-[25px]"
+					style={{
+						// Fix overflow clipping in Safari
+						// https://gist.github.com/domske/b66047671c780a238b51c51ffde8d3a0
+						transform: "translateZ(0)",
+					}}
+					value={10}
+				>
+					<Progress.Indicator
+						class="bg-white w-full h-full transition-transform duration-[660ms] ease-[cubic-bezier(0.65, 0, 0.35, 1)]"
+						style={{ transform: `translateX(-${100 - 10}%)` }}
+					/>
+				</Progress.Root>
 			</body>
 		</>
 	)
