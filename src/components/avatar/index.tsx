@@ -29,9 +29,7 @@ function useImageLoadingStatus(src?: string) {
 		let isMounted = true
 		const image = new window.Image()
 
-		console.log(image)
 		const updateStatus = (status: ImageLoadingStatus) => () => {
-			console.log(status)
 			if (!isMounted) return
 			loadingStatusSignal.value = status
 		}
@@ -116,8 +114,6 @@ const AvatarFallback = component$((props: AvatarFallbackProps) => {
 			return () => window.clearTimeout(timerId)
 		}
 	})
-
-	console.log(context.status)
 
 	return canRender && context.status !== "loaded" ? (
 		<span {...fallbackProps}>

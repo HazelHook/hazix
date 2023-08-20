@@ -1,5 +1,3 @@
-import { Logo } from "./components/logo/logo"
-
 import * as Accordion from "./components/accordion"
 import * as Avatar from "./components/avatar"
 import * as Tabs from "./components/tabs"
@@ -7,6 +5,7 @@ import * as Tabs from "./components/tabs"
 import "./global.css"
 import { Toggle } from "./components/toggle"
 import { component$, useSignal } from "@builder.io/qwik"
+import { AspectRatio } from "./components/aspect-ratio"
 
 export default component$(() => {
 	const pressed = useSignal(false)
@@ -17,7 +16,6 @@ export default component$(() => {
 				<title>Qwik Blank App</title>
 			</head>
 			<body class="bg-slate-700 container px-12 space-y-12">
-				<Logo />
 				<Accordion.Root class="bg-white w-[300px] rounded-md shadow-[0_2px_10px] shadow-black/5" type="single">
 					<Accordion.Item>
 						<Accordion.Trigger>Is it accessible?</Accordion.Trigger>
@@ -60,18 +58,28 @@ export default component$(() => {
 							PD
 						</Avatar.Fallback>
 					</Avatar.Root>
+				</div>
+				<Tabs.Root>
+					<Tabs.List>
+						<Tabs.Tab>Tab 1</Tabs.Tab>
+						<Tabs.Tab>Tab 2</Tabs.Tab>
+						<Tabs.Tab>Tab 3</Tabs.Tab>
+					</Tabs.List>
 
-					<Tabs.Root>
-						<Tabs.List>
-							<Tabs.Tab>Tab 1</Tabs.Tab>
-							<Tabs.Tab>Tab 2</Tabs.Tab>
-							<Tabs.Tab>Tab 3</Tabs.Tab>
-						</Tabs.List>
-
-						<Tabs.Panel>Content 1</Tabs.Panel>
-						<Tabs.Panel>Content 2</Tabs.Panel>
-						<Tabs.Panel>Content 3</Tabs.Panel>
-					</Tabs.Root>
+					<Tabs.Panel>Content 1</Tabs.Panel>
+					<Tabs.Panel>Content 2</Tabs.Panel>
+					<Tabs.Panel>Content 3</Tabs.Panel>
+				</Tabs.Root>
+				<div class="shadow-black w-[300px] overflow-hidden rounded-md shadow-[0_2px_10px]">
+					<AspectRatio ratio={16 / 9}>
+						<img
+							class="h-full w-full object-cover"
+							width={800}
+							height={800}
+							src="https://images.unsplash.com/photo-1535025183041-0991a977e25b?w=300&dpr=2&q=80"
+							alt="Landscape photograph by Tobias Tullius"
+						/>
+					</AspectRatio>
 				</div>
 			</body>
 		</>
