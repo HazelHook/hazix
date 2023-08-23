@@ -11,7 +11,7 @@ export default component$(() => {
 				<title>Qwik Blank App</title>
 			</head>
 			<body class="bg-slate-700 container px-12 space-y-12">
-				<Toaster>
+				<Toaster richColors>
 					<Slot />
 					<MainPage />
 				</Toaster>

@@ -1,4 +1,4 @@
-import { component$, useContext, useSignal } from "@builder.io/qwik"
+import { $, component$, useContext, useSignal } from "@builder.io/qwik"
 
 import * as Accordion from "../components/accordion"
 import * as Avatar from "../components/avatar"
@@ -7,14 +7,13 @@ import * as Progress from "../components/progress"
 
 import { Toggle } from "../components/toggle"
 import { AspectRatio } from "../components/aspect-ratio"
-import { ToastContext } from "../components/toast/theme-context"
+import { ToastContext } from "../components/toast/toast-context"
 
 export const MainPage = component$(() => {
 	const pressed = useSignal(false)
 
 	const context = useContext(ToastContext)
 
-	console.log(context)
 	return (
 		<div class="space-y-12">
 			<Accordion.Root class="bg-white w-[300px] rounded-md shadow-[0_2px_10px] shadow-black/5" type="single">
@@ -96,16 +95,70 @@ export const MainPage = component$(() => {
 					style={{ transform: `translateX(-${100 - 10}%)` }}
 				/>
 			</Progress.Root>
-			<button
-				class="bg-red-600"
-				type="button"
-				onClick$={() => {
-					// eslint-disable-next-line qwik/valid-lexical-scope
-					// context.add(component$(() => <div>I LIKE AMAZING</div>))
-				}}
-			>
-				WOW
-			</button>
+			<div class="flex flex-col gap-4">
+				<button
+					class="bg-red-600"
+					type="button"
+					onClick$={() => {
+						// eslint-disable-next-line qwik/valid-lexical-scope
+						context.message({
+							message: component$(() => (
+								<div>
+									AMAZING <button>CKUC</button>
+								</div>
+							)),
+						})
+					}}
+				>
+					WOW
+				</button>
+				<button
+					class="bg-red-600"
+					type="button"
+					onClick$={() => {
+						// eslint-disable-next-line qwik/valid-lexical-scope
+						context.success({
+							data: {
+								closeButton: true,
+							},
+							message: component$(() => <div>AMAZING SUCCESS</div>),
+						})
+					}}
+				>
+					Success
+				</button>
+				<button
+					class="bg-red-600"
+					type="button"
+					onClick$={() => {
+						// eslint-disable-next-line qwik/valid-lexical-scope
+						context.error({
+							data: {
+								closeButton: true,
+							},
+							message: component$(() => <div>AMAZING ERROR</div>),
+						})
+					}}
+				>
+					Error
+				</button>
+				<button
+					class="bg-cyan-600"
+					type="button"
+					onClick$={() => {
+						const promise = $(() => new Promise((resolve) => setTimeout(resolve, 2000)))
+
+						// eslint-disable-next-line qwik/valid-lexical-scope
+						context.promise(promise, {
+							loading: "Loading...",
+							success: "WOW SUCESS",
+							error: "Error",
+						})
+					}}
+				>
+					Promise
+				</button>
+			</div>
 		</div>
 	)
 })

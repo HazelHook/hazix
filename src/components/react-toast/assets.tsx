@@ -1,6 +1,6 @@
-import { ToastTypes } from "./toast-context"
+import { ToastTypes } from "./types"
 
-export const getAsset = (type: ToastTypes | undefined) => {
+export const getAsset = (type: ToastTypes) => {
 	switch (type) {
 		case "success":
 			return SuccessIcon
@@ -17,10 +17,10 @@ const bars = Array(12).fill(0)
 
 export const Loader = ({ visible }: { visible: boolean }) => {
 	return (
-		<div class="hazix-loading-wrapper" data-visible={visible}>
-			<div class="hazix-spinner">
+		<div class="sonner-loading-wrapper" data-visible={visible}>
+			<div className="sonner-spinner">
 				{bars.map((_, i) => (
-					<div class="hazix-loading-bar" key={`spinner-bar-${i}`} />
+					<div className="sonner-loading-bar" key={`spinner-bar-${i}`} />
 				))}
 			</div>
 		</div>
@@ -28,22 +28,13 @@ export const Loader = ({ visible }: { visible: boolean }) => {
 }
 
 const SuccessIcon = (
-	<svg
-		xmlns="http://www.w3.org/2000/svg"
-		class="icon icon-tabler icon-tabler-circle-check"
-		width="24"
-		height="24"
-		viewBox="0 0 24 24"
-		stroke-width="2"
-		stroke="currentColor"
-		fill="none"
-		stroke-linecap="round"
-		stroke-linejoin="round"
-	>
-		<title>Check</title>
-		<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-		<path d="M12 12m-9 0a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" />
-		<path d="M9 12l2 2l4 -4" />
+	<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" height="20" width="20">
+		<title>Success Icon</title>
+		<path
+			fillRule="evenodd"
+			d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.857-9.809a.75.75 0 00-1.214-.882l-3.483 4.79-1.88-1.88a.75.75 0 10-1.06 1.061l2.5 2.5a.75.75 0 001.137-.089l4-5.5z"
+			clipRule="evenodd"
+		/>
 	</svg>
 )
 
@@ -51,8 +42,8 @@ const ErrorIcon = (
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
 		class="icon icon-tabler icon-tabler-exclamation-circle"
-		width="20"
-		height="20"
+		width="44"
+		height="44"
 		viewBox="0 0 24 24"
 		stroke-width="1.5"
 		stroke="currentColor"
