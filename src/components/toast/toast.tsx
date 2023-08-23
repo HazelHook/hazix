@@ -6,6 +6,7 @@ import {
 	useComputed$,
 	useContext,
 	useSignal,
+	useTask$,
 	useVisibleTask$,
 } from "@builder.io/qwik"
 import { Height, Position, ToastContext, type Toast as ToastType } from "./toast-context"
@@ -21,12 +22,14 @@ type ToastProps = {
 	heights: Signal<Height[]>
 } & ToastType
 
+const TOAST_LIFETIME = 4000
+
 export const Toast = component$<ToastProps>(({ heights, ...toast }) => {
 	const toasterContext = useContext(ToastContext)
 	const disabled = toast.type === "loading"
 
 	const Title = toast.title
-	const { type } = toast
+	const { type, duration: toastDuration, promise, expanded } = toast
 
 	const toastRef = useSignal<Element>()
 
@@ -35,6 +38,7 @@ export const Toast = component$<ToastProps>(({ heights, ...toast }) => {
 	const swipingSgnal = useSignal(false)
 	const swipeOutSignal = useSignal(false)
 	const initialHeightSignal = useSignal(0)
+
 	const isFront = toast.index === 0
 	const isVisible = toast.index + 1 <= toast.visibleToasts
 
@@ -56,9 +60,54 @@ export const Toast = component$<ToastProps>(({ heights, ...toast }) => {
 
 	const offset = useComputed$(() => heightIndex.value * GAP + toastsHeightBefore.value)
 
+	const duration = useComputed$(() => toastDuration || TOAST_LIFETIME)
+	const remainingDuration = useSignal(duration.value)
+	const lastTimerStartTime = useSignal<number>(0)
+	const closeTimerStartTime = useSignal<number>(0)
+
 	const [y, x] = toast.position.split("-")
 
 	const id = toast.id
+
+	const handleRemove = $(() => {
+		// eslint-disable-next-line qwik/valid-lexical-scope
+		toasterContext.remove(toast.id)
+	})
+
+	useTask$(({ cleanup }) => {
+		// eslint-disable-next-line qwik/valid-lexical-scope
+		if ((promise && type === "loading") || duration.value === Infinity) return
+
+		let timeoutId: number
+
+		const pauseTimer = () => {
+			if (lastTimerStartTime.value < closeTimerStartTime.value) {
+				// Get the elapsed time since the timer started
+				const elapsedTime = new Date().getTime() - closeTimerStartTime.value
+
+				remainingDuration.value = remainingDuration.value - elapsedTime
+			}
+
+			closeTimerStartTime.value = new Date().getTime()
+		}
+
+		const startTimer = () => {
+			closeTimerStartTime.value = new Date().getTime()
+			// Let the toast know it has started
+			timeoutId = setTimeout(() => {
+				// toast.onAutoClose?.(toast)
+				handleRemove()
+			}, remainingDuration.value)
+		}
+
+		if (expanded) {
+			pauseTimer()
+		} else {
+			startTimer()
+		}
+
+		cleanup(() => clearTimeout(timeoutId))
+	})
 
 	useVisibleTask$(() => {
 		if (!mountedSignal.value) {
@@ -82,11 +131,6 @@ export const Toast = component$<ToastProps>(({ heights, ...toast }) => {
 				)
 			}
 		}
-	})
-
-	const handleRemove = $(() => {
-		// eslint-disable-next-line qwik/valid-lexical-scope
-		toasterContext.remove(toast.id)
 	})
 
 	useVisibleTask$(({ cleanup }) => {
