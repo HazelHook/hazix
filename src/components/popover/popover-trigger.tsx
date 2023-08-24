@@ -11,33 +11,31 @@ import {
 import { PopoverContext } from "./popover-context"
 import styles from "./popover-trigger.css?inline"
 
-export const PopoverTrigger = component$(
-	(
-		props: QwikIntrinsicElements["span"] & {
-			tabIndex?: number
-		},
-	) => {
-		const ref = useSignal<HTMLElement>()
-		const contextService = useContext(PopoverContext)
-		useStylesScoped$(styles)
+export type PopoverTriggerProps = {
+	tabIndex?: number
+} & QwikIntrinsicElements["span"]
 
-		useVisibleTask$(() => {
-			contextService.setTriggerRef$(ref)
-		})
+export const PopoverTrigger = component$<PopoverTriggerProps>(({ class: classes, ...props }) => {
+	const ref = useSignal<HTMLElement>()
+	const contextService = useContext(PopoverContext)
+	useStylesScoped$(styles)
 
-		const mouseOverHandler = $(() => {
-			contextService.open = true
-		})
-		return (
-			<span
-				ref={ref}
-				{...props}
-				role="button"
-				class="popover-trigger"
-				onMouseOver$={contextService.triggerEvent === "mouseOver" ? mouseOverHandler : undefined}
-			>
-				<Slot />
-			</span>
-		)
-	},
-)
+	useVisibleTask$(() => {
+		contextService.setTriggerRef$(ref)
+	})
+
+	const mouseOverHandler = $(() => {
+		contextService.open = true
+	})
+	return (
+		<span
+			ref={ref}
+			{...props}
+			role="button"
+			class={`popover-trigger ${classes}`}
+			onMouseOver$={contextService.triggerEvent === "mouseOver" ? mouseOverHandler : undefined}
+		>
+			<Slot />
+		</span>
+	)
+})

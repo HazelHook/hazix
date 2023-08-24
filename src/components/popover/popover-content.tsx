@@ -1,8 +1,18 @@
-import { component$, Slot, useVisibleTask$, useContext, useSignal, useStylesScoped$ } from "@builder.io/qwik"
+import {
+	component$,
+	Slot,
+	useVisibleTask$,
+	useContext,
+	useSignal,
+	useStylesScoped$,
+	QwikIntrinsicElements,
+} from "@builder.io/qwik"
 import styles from "./popover-content.css?inline"
 import { PopoverContext } from "./popover-context"
 
-export const PopoverContent = component$(() => {
+export type PopoverContentProps = {} & QwikIntrinsicElements["div"]
+
+export const PopoverContent = component$<PopoverContentProps>(({ class: classes, ...rest }) => {
 	const ref = useSignal<HTMLElement>()
 	const contextService = useContext(PopoverContext)
 	useStylesScoped$(styles)
@@ -12,7 +22,7 @@ export const PopoverContent = component$(() => {
 	})
 
 	return (
-		<div ref={ref} role="dialog" aria-modal="true" aria-label="Popover" class="popover-content">
+		<div ref={ref} role="dialog" aria-modal="true" aria-label="Popover" class={`popover-content ${classes}`} {...rest}>
 			<Slot />
 		</div>
 	)
