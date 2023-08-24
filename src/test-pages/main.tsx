@@ -9,6 +9,7 @@ import * as Popover from "../components/popover"
 import { Toggle } from "../components/toggle"
 import { AspectRatio } from "../components/aspect-ratio"
 import { ToastContext } from "../components/toast/toast-context"
+import { Tooltip } from "../components/tooltip/tooltip"
 
 export const MainPage = component$(() => {
 	const pressed = useSignal(false)
@@ -170,6 +171,11 @@ export const MainPage = component$(() => {
 					</button>
 				</Popover.Trigger>
 			</Popover.Root>
+			<Tooltip content="Tooltip Content">Trigger content</Tooltip>
+			<Tooltip>
+				<div q:slot="content">Tooltip Content</div>
+				Trigger content
+			</Tooltip>
 		</div>
 	)
 })
