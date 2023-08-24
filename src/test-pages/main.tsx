@@ -4,6 +4,7 @@ import * as Accordion from "../components/accordion"
 import * as Avatar from "../components/avatar"
 import * as Tabs from "../components/tabs"
 import * as Progress from "../components/progress"
+import * as Popover from "../components/popover"
 
 import { Toggle } from "../components/toggle"
 import { AspectRatio } from "../components/aspect-ratio"
@@ -12,7 +13,7 @@ import { ToastContext } from "../components/toast/toast-context"
 export const MainPage = component$(() => {
 	const pressed = useSignal(false)
 
-	const { ...toast } = useContext(ToastContext)
+	const toast = useContext(ToastContext)
 
 	return (
 		<div class="space-y-12">
@@ -155,6 +156,20 @@ export const MainPage = component$(() => {
 					Promise
 				</button>
 			</div>
+			<Popover.Root>
+				<Popover.Content>
+					<div class="bg-red-500">WOWZIEZ</div>
+				</Popover.Content>
+				<Popover.Trigger>
+					<button
+						type="button"
+						class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black cursor-default outline-none"
+						aria-label="Update dimensions"
+					>
+						A
+					</button>
+				</Popover.Trigger>
+			</Popover.Root>
 		</div>
 	)
 })

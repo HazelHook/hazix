@@ -2,12 +2,14 @@ import { useContext } from "@builder.io/qwik"
 import { ToastContext } from "./toast-context"
 
 export const useToast = () => {
-	const { toasts, toastCounter, ...rest } = useContext(ToastContext)
+	const context = useContext(ToastContext)
 
 	return {
-		toasts,
-		counter: toastCounter,
-		toast: rest,
+		toasts: context.toasts,
+		counter: context.toastCounter,
+		toast: {
+			message$: context.message,
+		},
 	}
 }
 
