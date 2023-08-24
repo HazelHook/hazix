@@ -12,7 +12,7 @@ import { ToastContext } from "../components/toast/toast-context"
 export const MainPage = component$(() => {
 	const pressed = useSignal(false)
 
-	const context = useContext(ToastContext)
+	const { ...toast } = useContext(ToastContext)
 
 	return (
 		<div class="space-y-12">
@@ -101,12 +101,8 @@ export const MainPage = component$(() => {
 					type="button"
 					onClick$={() => {
 						// eslint-disable-next-line qwik/valid-lexical-scope
-						context.message({
-							message: component$(() => (
-								<div>
-									AMAZING <button>CKUC</button>
-								</div>
-							)),
+						toast.message({
+							message: component$(() => <div>AMAZING</div>),
 						})
 					}}
 				>
@@ -117,7 +113,7 @@ export const MainPage = component$(() => {
 					type="button"
 					onClick$={() => {
 						// eslint-disable-next-line qwik/valid-lexical-scope
-						context.success({
+						toast.success({
 							data: {
 								closeButton: true,
 							},
@@ -132,7 +128,7 @@ export const MainPage = component$(() => {
 					type="button"
 					onClick$={() => {
 						// eslint-disable-next-line qwik/valid-lexical-scope
-						context.error({
+						toast.error({
 							data: {
 								closeButton: true,
 							},
@@ -149,7 +145,7 @@ export const MainPage = component$(() => {
 						const promise = $(() => new Promise((resolve) => setTimeout(resolve, 2000)))
 
 						// eslint-disable-next-line qwik/valid-lexical-scope
-						context.promise(promise, {
+						toast.promise(promise, {
 							loading: "Loading...",
 							success: "WOW SUCESS",
 							error: "Error",
