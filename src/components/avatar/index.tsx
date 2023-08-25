@@ -48,7 +48,7 @@ function useImageLoadingStatus(src?: string) {
 	return loadingStatusSignal
 }
 
-type AvatarProps = {} & QwikIntrinsicElements["span"]
+export type AvatarProps = {} & QwikIntrinsicElements["span"]
 
 type AvatarStore = {
 	status: ImageLoadingStatus
@@ -73,7 +73,7 @@ const Avatar = component$((props: AvatarProps) => {
 	)
 })
 
-type AvatarImageProps = {
+export type AvatarImageProps = {
 	onLoadingStatusChange?: PropFunction<(status: ImageLoadingStatus) => void>
 } & QwikIntrinsicElements["img"]
 
@@ -97,7 +97,7 @@ const AvatarImage = component$((props: AvatarImageProps) => {
 	return imageLoadingStatusSignal.value === "loaded" ? <img {...imageProps} src={src} /> : null
 })
 
-type AvatarFallbackProps = {
+export type AvatarFallbackProps = {
 	delayMs?: number
 } & QwikIntrinsicElements["span"]
 
