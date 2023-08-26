@@ -4,40 +4,59 @@ import * as Checkbox from "components/checkbox";
 import * as Dialog from "components/dialog";
 import { Root as Label } from "components/label";
 import { Separator } from "components/separator";
+import { Switch } from "components/switch";
 
 export const Showcase = component$(() => {
-  const dialogOpen = useSignal(false)
+  const dialogOpen = useSignal(false);
 
   return (
     <div class="w-full h-full px-12 py-8 space-y-8 flex flex-col">
       <Logo />
-      <form>
-        <Checkbox.Root
-          class="w-4 h-4 bg-white rounded-sm"
-          defaultChecked
-          name="test-checkbox"
-        >
-          <Checkbox.Indicator class="text-xs">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-4 h-4"
-              viewBox="0 0 24 24"
-              fill="black"
-              role="checkbox"
-              aria-checked
-            >
-              <path d="M6 18L18 6M6 6l12 12" stroke="black" stroke-width="2" />
-            </svg>
-          </Checkbox.Indicator>
-        </Checkbox.Root>
-        <Label for="test-checkbox" class="ml-2 text-white">
-          Checkbox {dialogOpen.value ? "open" : "closed"}
-        </Label>
+      <form class="flex flex-row gap-4">
+        <div>
+          <Checkbox.Root
+            class="w-4 h-4 bg-white rounded-sm"
+            defaultChecked
+            name="test-checkbox"
+          >
+            <Checkbox.Indicator class="text-xs">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                class="w-4 h-4"
+                viewBox="0 0 24 24"
+                fill="black"
+                role="checkbox"
+                aria-checked
+              >
+                <path
+                  d="M6 18L18 6M6 6l12 12"
+                  stroke="black"
+                  stroke-width="2"
+                />
+              </svg>
+            </Checkbox.Indicator>
+          </Checkbox.Root>
+          <Label for="test-checkbox" class="ml-2 text-white">
+            Checkbox {dialogOpen.value ? "open" : "closed"}
+          </Label>
+        </div>
+
+        <Separator orientation="vertical" class="bg-white h-6" />
+
+        <div>
+          <Switch
+            name="test-switch"
+            class="w-8 h-4 bg-white rounded-sm"
+          />
+          <Label for="test-switch" class="ml-2 text-white">
+            Switch
+          </Label>
+        </div>
       </form>
 
       <Separator class="bg-white" />
 
-        <Dialog.Root open={dialogOpen}>
+      <Dialog.Root open={dialogOpen}>
         <Dialog.Trigger class="bg-slate-800 text-white rounded-sm px-4 py-2 w-32">
           Open Dialog
         </Dialog.Trigger>
@@ -47,7 +66,13 @@ export const Showcase = component$(() => {
               Dialog Title
             </div>
             <div q:slot="description" class="text-white">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+              enim ad minim veniam, quis nostrud exercitation ullamco laboris
+              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+              reprehenderit in voluptate velit esse cillum dolore eu fugiat
+              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+              sunt in culpa qui officia deserunt mollit anim id est laborum.
             </div>
             <Dialog.Close q:slot="close" class="text-white">
               <svg
