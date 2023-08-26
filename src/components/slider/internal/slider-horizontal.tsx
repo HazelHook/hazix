@@ -1,6 +1,5 @@
-/* eslint-disable qwik/use-method-usage */
 import { QwikKeyboardEvent, component$ } from "@builder.io/qwik"
-import { SliderImpl, SliderImplElement, SliderImplPrivateProps, SliderImplProps } from "./slider-impl"
+import { SliderImpl, SliderImplPrivateProps, SliderImplProps } from "./slider-impl"
 import { BACK_KEYS, Direction } from "./data"
 import { setupSliderOrientationContextProvider } from "./slider-context"
 
@@ -37,8 +36,8 @@ interface SliderHorizontalProps extends SliderOrientationProps {
 
 export const SliderHorizontal = component$<SliderHorizontalProps>(({ class: classProp, ...props }) => {
 	const {
-		min,
-		max,
+		// min,
+		// max,
 		dir: direction = "ltr",
 		inverted,
 		onSlideStart,
