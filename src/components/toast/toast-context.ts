@@ -1,4 +1,4 @@
-import { CSSProperties, Component, QRL, QwikMouseEvent, createContextId } from "@builder.io/qwik"
+import { CSSProperties, Component, QRL, QwikMouseEvent, createContextId, useContext } from "@builder.io/qwik"
 
 export type Position = "top-left" | "top-right" | "bottom-left" | "bottom-right" | "top-center" | "bottom-center"
 export type ToastTypes = "normal" | "action" | "success" | "error" | "loading"
@@ -67,3 +67,6 @@ export type ThemeStore = {
 }
 
 export const ToastContext = createContextId<ThemeStore>("toast-context")
+export function useToastContext() {
+	return useContext(ToastContext)
+}
