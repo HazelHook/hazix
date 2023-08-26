@@ -3,6 +3,7 @@ import { Logo } from "components/logo/logo";
 import * as Checkbox from "components/checkbox";
 import * as Dialog from "components/dialog";
 import { Root as Label } from "components/label";
+import { Separator } from "components/separator";
 
 export const Showcase = component$(() => {
   const dialogOpen = useSignal(false)
@@ -33,6 +34,8 @@ export const Showcase = component$(() => {
           Checkbox {dialogOpen.value ? "open" : "closed"}
         </Label>
       </form>
+
+      <Separator class="bg-white" />
 
         <Dialog.Root open={dialogOpen}>
         <Dialog.Trigger class="bg-slate-800 text-white rounded-sm px-4 py-2 w-32">
