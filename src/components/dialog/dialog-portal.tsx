@@ -36,7 +36,6 @@ export const Content = component$<QwikIntrinsicElements["div"]>((props) => {
   );
 });
 
-
 export const Close = component$<QwikIntrinsicElements["button"]>((props) => {
   const portalContext = usePortalProviderContext();
 
