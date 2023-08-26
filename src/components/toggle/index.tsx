@@ -1,44 +1,38 @@
-import { component$, Slot, type QwikIntrinsicElements, useSignal, $, PropFunction } from "@builder.io/qwik"
+import { component$, Slot, type QwikIntrinsicElements, Signal, useSignal } from "@builder.io/qwik"
 
-type ToggleProps = {
+type ToggleCustomProps = {
 	/**
 	 * The controlled state of the toggle.
 	 */
-	pressed?: boolean
+	pressed?: Signal<boolean>
 	/**
 	 * The state of the toggle when initially rendered. Use `defaultPressed`
 	 * if you do not need to control the state of the toggle.
 	 * @defaultValue false
 	 */
 	defaultPressed?: boolean
-	/**
-	 * The callback that fires when the state of the toggle changes.
-	 */
-	onPressedChange$?: PropFunction<(pressed: boolean) => void>
-} & QwikIntrinsicElements["button"]
+}
+
+type ToggleProps = ToggleCustomProps & QwikIntrinsicElements["button"]
 
 export const Toggle = component$((props: ToggleProps) => {
-	const { pressed: pressedProp, defaultPressed = false, onPressedChange$, ...buttonProps } = props
-
-	const controlled = pressedProp !== undefined
-	const pressed = useSignal(defaultPressed)
-
-	const onToggleClick = $(() => {
-		pressed.value = !pressed.value
-
-		if (onPressedChange$) {
-			onPressedChange$(pressed.value)
-		}
-	})
+	const {
+		// eslint-disable-next-line qwik/use-method-usage
+		pressed = useSignal(props.defaultPressed),
+		defaultPressed = false,
+		...buttonProps
+	} = props
 
 	return (
 		<button
 			type="button"
-			aria-pressed={controlled ? pressedProp : pressed.value}
-			data-state={controlled ? pressedProp : pressed.value ? "on" : "off"}
+			aria-pressed={pressed?.value ?? defaultPressed ?? false}
+			data-state={pressed?.value ? "on" : "off"}
 			data-disabled={props.disabled ? "" : undefined}
-			{...buttonProps}
-			onClick$={onToggleClick}
+			{...(buttonProps as QwikIntrinsicElements["button"])}
+			onClick$={() => {
+				pressed.value = !pressed.value
+			}}
 		>
 			<Slot />
 		</button>
