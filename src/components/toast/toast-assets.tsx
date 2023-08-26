@@ -17,7 +17,7 @@ const bars = Array(12).fill(0)
 
 export const Loader = ({ visible }: { visible: boolean }) => {
 	return (
-		<div class="hazix-loading-wrapper" data-visible={visible}>
+		<div class="hazix-loading-wrapper" data-visible={String(visible)}>
 			<div class="hazix-spinner">
 				{bars.map((_, i) => (
 					<div class="hazix-loading-bar" key={`spinner-bar-${i}`} />

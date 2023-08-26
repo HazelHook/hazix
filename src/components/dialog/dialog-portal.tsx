@@ -23,7 +23,7 @@ export const Portal = component$<QwikIntrinsicElements["div"]>(({ class: classPr
 export const Content = component$<QwikIntrinsicElements["div"]>((props) => {
 	return (
 		<div {...props} onClick$={(e) => e.stopPropagation()}>
-			<div class="flex flex-row justify-between ">
+			<div class="flex flex-row justify-between">
 				<div class="mr-4">
 					<Slot name="title" />
 				</div>

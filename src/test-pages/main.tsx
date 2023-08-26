@@ -1,4 +1,4 @@
-import { $, component$, useContext, useSignal } from "@builder.io/qwik"
+import { $, component$, useSignal } from "@builder.io/qwik"
 
 import * as Accordion from "../components/accordion"
 import * as Avatar from "../components/avatar"
@@ -10,7 +10,6 @@ import * as Popover from "../components/popover"
 
 import { Toggle } from "../components/toggle"
 import { AspectRatio } from "../components/aspect-ratio"
-import { ToastContext, useToastContext } from "../components/toast/toast-context"
 import { Tooltip } from "../components/tooltip/tooltip"
 import { Switch } from "components/switch"
 import { Separator } from "components/separator"
@@ -20,7 +19,7 @@ import { useToast } from "components/toast"
 export const MainPage = component$(() => {
 	const pressed = useSignal(false)
 
-	const toast = useToastContext()
+	const { toast } = useToast()
 
 	return (
 		<div class="space-y-12">
@@ -108,8 +107,7 @@ export const MainPage = component$(() => {
 					class="bg-red-600"
 					type="button"
 					onClick$={() => {
-						// eslint-disable-next-line qwik/valid-lexical-scope
-						toast.message$({
+						toast.message({
 							message: component$(() => <div>AMAZING</div>),
 						})
 					}}
@@ -120,7 +118,6 @@ export const MainPage = component$(() => {
 					class="bg-red-600"
 					type="button"
 					onClick$={() => {
-						// eslint-disable-next-line qwik/valid-lexical-scope
 						toast.success({
 							data: {
 								closeButton: true,
@@ -135,7 +132,6 @@ export const MainPage = component$(() => {
 					class="bg-red-600"
 					type="button"
 					onClick$={() => {
-						// eslint-disable-next-line qwik/valid-lexical-scope
 						toast.error({
 							data: {
 								closeButton: true,
@@ -152,7 +148,6 @@ export const MainPage = component$(() => {
 					onClick$={() => {
 						const promise = $(() => new Promise((resolve) => setTimeout(resolve, 2000)))
 
-						// eslint-disable-next-line qwik/valid-lexical-scope
 						toast.promise(promise, {
 							loading: "Loading...",
 							success: "WOW SUCESS",
