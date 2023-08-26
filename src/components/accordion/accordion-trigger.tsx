@@ -153,6 +153,7 @@ export const AccordionTrigger = component$(({ disabled, ...props }: AccordionTri
 				props.onKeyDown$,
 			]}
 			onFocus$={[setCurrFocusedIndexSig$, props.onFocus$]}
+			// This will overwrite
 			{...props}
 		>
 			<Slot />

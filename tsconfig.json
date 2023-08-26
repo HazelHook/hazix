@@ -15,7 +15,12 @@
     "skipLibCheck": true,
     "incremental": true,
     "isolatedModules": true,
-    "types": ["vite/client"]
+    "types": ["vite/client"],
+    "baseUrl": "src",
+    "paths": {
+      "utils/*": ["utils/*"],
+      "components/*": ["components/*"]
+    }
   },
   "include": ["src"]
 }
