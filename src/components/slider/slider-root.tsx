@@ -1,4 +1,5 @@
 import { $, QwikIntrinsicElements, component$ } from "@builder.io/qwik";
+import { Direction } from "./internal/data";
 
 
 

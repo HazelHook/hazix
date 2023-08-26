@@ -1,8 +1,9 @@
 import { QwikIntrinsicElements, QwikKeyboardEvent, QwikPointerEvent, component$ } from "@builder.io/qwik";
 import { ARROW_KEYS, PAGE_KEYS } from "./data";
+import { useSliderContext } from "../slider-context";
 
 type PrimitiveDivProps = QwikIntrinsicElements["div"];
-type SliderImplPrivateProps = {
+export type SliderImplPrivateProps = {
   onSlideStart(event: QwikPointerEvent): void;
   onSlideMove(event: QwikPointerEvent): void;
   onSlideEnd(event: QwikPointerEvent): void;
@@ -11,6 +12,7 @@ type SliderImplPrivateProps = {
   onStepKeyDown(event: QwikKeyboardEvent): void;
 };
 export interface SliderImplProps extends PrimitiveDivProps, SliderImplPrivateProps {}
+export type SliderImplElement = QwikIntrinsicElements["span"]
 
 export const SliderImpl = component$<SliderImplProps>((props) => {
     const {

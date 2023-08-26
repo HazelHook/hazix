@@ -9,10 +9,10 @@ export type SliderRootContext = {
   thumbs: Set<HTMLElement>;
 };
 
-const checkboxContextId = createContextId<SliderRootContext>("checkbox-root");
+const sliderContextId = createContextId<SliderRootContext>("slider");
 
 export function useSliderContext() {
-  return useContext(checkboxContextId);
+  return useContext(sliderContextId);
 }
 
 export function setupSliderContextProvider(
@@ -21,7 +21,7 @@ export function setupSliderContextProvider(
   // eslint-disable-next-line qwik/use-method-usage
   const store = useStore(data);
   // eslint-disable-next-line qwik/use-method-usage
-  useContextProvider(checkboxContextId, store);
+  useContextProvider(sliderContextId, store);
 
   return store;
 }
