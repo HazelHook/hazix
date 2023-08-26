@@ -4,7 +4,7 @@ export type RootProps = Omit<QwikIntrinsicElements["label"], "for"> & {
     for: string;
 };
 
-export const Root = component$<RootProps>((props) => {
+export const Label = component$<RootProps>((props) => {
     return <label {...props}>
         <Slot />
     </label>
