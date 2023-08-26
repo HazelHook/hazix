@@ -10,6 +10,7 @@ import * as Popover from "../components/popover"
 
 import { Toggle } from "../components/toggle"
 import { AspectRatio } from "../components/aspect-ratio"
+import { ToastContext, useToastContext } from "../components/toast/toast-context"
 import { Tooltip } from "../components/tooltip/tooltip"
 import { Switch } from "components/switch"
 import { Separator } from "components/separator"
@@ -19,7 +20,7 @@ import { useToast } from "components/toast"
 export const MainPage = component$(() => {
 	const pressed = useSignal(false)
 
-	const { toast } = useToast()
+	const toast = useToastContext()
 
 	return (
 		<div class="space-y-12">
