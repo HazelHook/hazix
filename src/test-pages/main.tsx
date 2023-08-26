@@ -10,16 +10,16 @@ import * as Popover from "../components/popover"
 
 import { Toggle } from "../components/toggle"
 import { AspectRatio } from "../components/aspect-ratio"
-import { ToastContext } from "../components/toast/toast-context"
 import { Tooltip } from "../components/tooltip/tooltip"
 import { Switch } from "components/switch"
 import { Separator } from "components/separator"
 import { Label } from "components/label"
+import { useToast } from "components/toast"
 
 export const MainPage = component$(() => {
 	const pressed = useSignal(false)
 
-	const toast = useContext(ToastContext)
+	const { toast } = useToast()
 
 	return (
 		<div class="space-y-12">
@@ -108,7 +108,7 @@ export const MainPage = component$(() => {
 					type="button"
 					onClick$={() => {
 						// eslint-disable-next-line qwik/valid-lexical-scope
-						toast.message({
+						toast.message$({
 							message: component$(() => <div>AMAZING</div>),
 						})
 					}}
@@ -182,88 +182,70 @@ export const MainPage = component$(() => {
 				Trigger content
 			</Tooltip>
 
+			<form class="flex flex-row gap-4">
+				<div>
+					<Checkbox.Root class="w-4 h-4 bg-white rounded-sm" defaultChecked name="test-checkbox">
+						<Checkbox.Indicator class="text-xs">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								class="w-4 h-4"
+								viewBox="0 0 24 24"
+								fill="black"
+								role="checkbox"
+								aria-checked
+							>
+								<path d="M6 18L18 6M6 6l12 12" stroke="black" stroke-width="2" />
+							</svg>
+						</Checkbox.Indicator>
+					</Checkbox.Root>
+					<Label for="test-checkbox" class="ml-2 text-white">
+						Checkbox
+					</Label>
+				</div>
 
+				<Separator orientation="vertical" class="bg-white h-6" />
 
-      <form class="flex flex-row gap-4">
-        <div>
-          <Checkbox.Root
-            class="w-4 h-4 bg-white rounded-sm"
-            defaultChecked
-            name="test-checkbox"
-          >
-            <Checkbox.Indicator class="text-xs">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="w-4 h-4"
-                viewBox="0 0 24 24"
-                fill="black"
-                role="checkbox"
-                aria-checked
-              >
-                <path
-                  d="M6 18L18 6M6 6l12 12"
-                  stroke="black"
-                  stroke-width="2"
-                />
-              </svg>
-            </Checkbox.Indicator>
-          </Checkbox.Root>
-          <Label for="test-checkbox" class="ml-2 text-white">
-            Checkbox
-          </Label>
-        </div>
+				<div>
+					<Switch name="test-switch" class="w-8 h-4 bg-white rounded-sm" />
+					<Label for="test-switch" class="ml-2 text-white">
+						Switch
+					</Label>
+				</div>
+			</form>
 
-        <Separator orientation="vertical" class="bg-white h-6" />
+			<Separator class="bg-white" />
 
-        <div>
-          <Switch
-            name="test-switch"
-            class="w-8 h-4 bg-white rounded-sm"
-          />
-          <Label for="test-switch" class="ml-2 text-white">
-            Switch
-          </Label>
-        </div>
-      </form>
-
-      <Separator class="bg-white" />
-
-      <Dialog.Root>
-        <Dialog.Trigger class="bg-slate-800 text-white rounded-sm px-4 py-2 w-32">
-          Open Dialog
-        </Dialog.Trigger>
-        <Dialog.Portal class="bg-black bg-opacity-50">
-          <Dialog.Content class="bg-slate-700 rounded-md p-4 max-w-sm">
-            <div q:slot="title" class="text-white text-xl">
-              Dialog Title
-            </div>
-            <div q:slot="description" class="text-white">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
-              enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-              reprehenderit in voluptate velit esse cillum dolore eu fugiat
-              nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-              sunt in culpa qui officia deserunt mollit anim id est laborum.
-            </div>
-            <Dialog.Close q:slot="close" class="text-white">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                x="0px"
-                y="0px"
-                width="18"
-                height="18"
-                viewBox="0 0 50 50"
-                class="fill-white"
-              >
-                <title>Close</title>
-                <path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z" />
-              </svg>
-            </Dialog.Close>
-          </Dialog.Content>
-        </Dialog.Portal>
-      </Dialog.Root>
-
+			<Dialog.Root>
+				<Dialog.Trigger class="bg-slate-800 text-white rounded-sm px-4 py-2 w-32">Open Dialog</Dialog.Trigger>
+				<Dialog.Portal class="bg-black bg-opacity-50">
+					<Dialog.Content class="bg-slate-700 rounded-md p-4 max-w-sm">
+						<div q:slot="title" class="text-white text-xl">
+							Dialog Title
+						</div>
+						<div q:slot="description" class="text-white">
+							Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+							dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+							ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
+							fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+							mollit anim id est laborum.
+						</div>
+						<Dialog.Close q:slot="close" class="text-white">
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								x="0px"
+								y="0px"
+								width="18"
+								height="18"
+								viewBox="0 0 50 50"
+								class="fill-white"
+							>
+								<title>Close</title>
+								<path d="M 7.71875 6.28125 L 6.28125 7.71875 L 23.5625 25 L 6.28125 42.28125 L 7.71875 43.71875 L 25 26.4375 L 42.28125 43.71875 L 43.71875 42.28125 L 26.4375 25 L 43.71875 7.71875 L 42.28125 6.28125 L 25 23.5625 Z" />
+							</svg>
+						</Dialog.Close>
+					</Dialog.Content>
+				</Dialog.Portal>
+			</Dialog.Root>
 		</div>
 	)
 })

@@ -78,7 +78,7 @@ export const Toast = component$<ToastProps>(({ heights, ...toast }) => {
 		// eslint-disable-next-line qwik/valid-lexical-scope
 		if ((promise && type === "loading") || duration.value === Infinity) return
 
-		let timeoutId: number
+		let timeoutId: NodeJS.Timeout
 
 		const pauseTimer = () => {
 			if (lastTimerStartTime.value < closeTimerStartTime.value) {
@@ -115,7 +115,6 @@ export const Toast = component$<ToastProps>(({ heights, ...toast }) => {
 
 			if (toastRef.value) {
 				const originalHeight = toastRef.value.clientHeight
-				console.log(originalHeight)
 
 				// @ts-ignore
 				toastRef.value.style.height = "auto"
