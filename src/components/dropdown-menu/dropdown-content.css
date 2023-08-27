@@ -1,0 +1,18 @@
+.dropdown-content {
+    position: absolute;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-content.closed {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.dropdown-content.open {
+    opacity: 1;
+    pointer-events: auto;
+}

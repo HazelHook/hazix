@@ -4,6 +4,7 @@ import { Slot, component$ } from "@builder.io/qwik"
 import { MainPage } from "./test-pages/main"
 
 export default component$(() => {
+	
 	return (
 		<>
 			<head>
