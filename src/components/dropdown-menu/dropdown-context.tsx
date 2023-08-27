@@ -2,6 +2,7 @@ import { Signal, createContextId, useContext, useContextProvider } from "@builde
 
 export type DropdownMenuContext = {
 	open: Signal<boolean>
+	contentRef: Signal<HTMLElement | undefined>
 }
 
 const dropdownMenuContextId = createContextId<DropdownMenuContext>("portal-provider")

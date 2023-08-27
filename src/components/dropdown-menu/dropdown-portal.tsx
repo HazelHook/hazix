@@ -1,8 +1,10 @@
-import { QwikIntrinsicElements, Slot, component$ } from "@builder.io/qwik"
+import { QwikIntrinsicElements, Slot, component$, useStylesScoped$ } from "@builder.io/qwik"
 import { useDropdownMenuContext } from "./dropdown-context"
+import styles from "./dropdown-portal.css?inline"
 
 export const Portal = component$<QwikIntrinsicElements["div"]>(({ class: classes, ...props }) => {
 	const context = useDropdownMenuContext()
+	useStylesScoped$(styles)
 	return (
 		<div
 			{...props}

@@ -1,0 +1,7 @@
+.dropdown-arrow {
+    position: absolute;
+    top: 0px;
+    transform-origin: center 0px;
+    transform: rotate(180deg);
+    left: 113.5px;
+}

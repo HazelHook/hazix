@@ -7,12 +7,18 @@ export type ContentProps = {} & QwikIntrinsicElements["div"];
 export const Content = component$<ContentProps>(
   ({ class: classes, ...props }) => {
     const context = useDropdownMenuContext();
+    const ref = useSignal<HTMLElement>()
     useStylesScoped$(styles)
+
+    useVisibleTask$(() => {
+      context.contentRef.value = ref.value
+    })
 
     return (
       <div
         {...props}
         role="menu"
+        ref={ref}
         aria-label="Dropdown Menu"
         aria-orientation="vertical"
         data-state={context.open.value ? "open" : "closed"}
