@@ -21,6 +21,7 @@ export const Root = component$<RootProps>((props) => {
 
   setupDropdownMenuContextProvider({
     open,
+    contentRef: useSignal<HTMLElement>(),
   });
 
   return (

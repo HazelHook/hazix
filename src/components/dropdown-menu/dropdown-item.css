@@ -1,0 +1,18 @@
+.dropdown-portal {
+    position: absolute;
+    z-index: 10;
+    opacity: 0;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.dropdown-portal.closed {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.dropdown-portal.open {
+    opacity: 1;
+    pointer-events: auto;
+}

@@ -229,13 +229,14 @@ export const MainPage = component$(() => {
       <Separator class="bg-white" />
 
       <Dropdown.Root>
-        <Dropdown.Trigger class="bg-slate-800 text-white rounded-sm px-4 py-2">
+        <Dropdown.Trigger class="bg-slate-800 text-white rounded-xs px-4 py-2">
           Open Dropdown
         </Dropdown.Trigger>
         <Dropdown.Portal>
           <Dropdown.Content class="bg-white rounded-md p-4 max-w-sm">
             <p class="text-white">AHahah</p>
           </Dropdown.Content>
+		  <Dropdown.Arrow class="text-white" />
         </Dropdown.Portal>
       </Dropdown.Root>
 
