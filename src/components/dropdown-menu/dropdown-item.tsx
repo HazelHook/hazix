@@ -7,10 +7,10 @@ import styles from "./dropdown-portal.css?inline"
 
 export type DropdownItemProps = {
     disabled?: boolean
-    
+    text?: string
 } & QwikIntrinsicElements["div"]
 
-export const Item = component$<DropdownItemProps>(({ class: classes, ...props }) => {
+export const Item = component$<DropdownItemProps>(({ class: classes, disabled, text, ...props }) => {
 	const context = useDropdownMenuContext()
 	useStylesScoped$(styles)
 	return (
