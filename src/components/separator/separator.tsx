@@ -1,6 +1,4 @@
-import { QwikIntrinsicElements, component$, useStyles$ } from "@builder.io/qwik"
-
-import styles from "./seperator.css?inline"
+import { QwikIntrinsicElements, component$ } from "@builder.io/qwik"
 
 export type SeparatorProps = {
 	orientation?: "horizontal" | "vertical"
@@ -8,8 +6,6 @@ export type SeparatorProps = {
 } & QwikIntrinsicElements["div"]
 
 export const Separator = component$<SeparatorProps>(({ orientation = "horizontal", decorative, ...props }) => {
-	useStyles$(styles)
-
 	const ariaOrientation = orientation === "vertical" ? orientation : undefined
 	const semanticProps = decorative ? { role: "none" } : { "aria-orientation": ariaOrientation, role: "separator" }
 
