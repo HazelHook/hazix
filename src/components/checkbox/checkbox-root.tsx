@@ -7,9 +7,12 @@ import {
 	useSignal,
 	QwikMouseEvent,
 	Signal,
+	useStyles$,
 } from "@builder.io/qwik"
 import { setupCheckboxContextProvider } from "./checkbox-context"
 import { makeSignal } from "utils/hooks/signal"
+
+import styles from "./checkbox.css?inline"
 
 export type CheckedState = boolean | "indeterminate"
 export type CheckboxProps = Omit<QwikIntrinsicElements["button"], "checked" | "defaultChecked"> & {
@@ -20,7 +23,7 @@ export type CheckboxProps = Omit<QwikIntrinsicElements["button"], "checked" | "d
 
 export const Root = component$<CheckboxProps>((props) => {
 	const {
-		class: classProp,
+		class: classes,
 		defaultChecked,
 		checked: checkedProp,
 		disabled,
@@ -28,6 +31,7 @@ export const Root = component$<CheckboxProps>((props) => {
 		required,
 		...otherProps
 	} = props
+	useStyles$(styles)
 	const otherPropsTyped: QwikIntrinsicElements["button"] = otherProps
 	const ref = useSignal<HTMLButtonElement>()
 
@@ -47,7 +51,7 @@ export const Root = component$<CheckboxProps>((props) => {
 				disabled={disabled}
 				value={value}
 				{...otherPropsTyped}
-				class={`${classProp}`}
+				class={classes}
 				onKeyDown$={[
 					$((e: QwikKeyboardEvent) => {
 						// According to WAI ARIA, Checkboxes don't activate on enter keypress
