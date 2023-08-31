@@ -1,10 +1,10 @@
 import { type QwikIntrinsicElements, component$, Slot } from "@builder.io/qwik"
 
-export type RootProps = Omit<QwikIntrinsicElements["label"], "for"> & {
+export type LabelProps = Omit<QwikIntrinsicElements["label"], "for"> & {
 	for: string
 }
 
-export const Label = component$<RootProps>((props) => {
+export const Label = component$<LabelProps>((props) => {
 	return (
 		<label {...props}>
 			<Slot />
