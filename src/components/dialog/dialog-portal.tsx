@@ -30,6 +30,7 @@ export const Content = component$<QwikIntrinsicElements["div"]>((props) => {
 				<Slot name="close" />
 			</div>
 			<Slot name="description" />
+			<Slot />
 		</div>
 	)
 })
