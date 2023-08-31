@@ -39,7 +39,7 @@ export const Root = component$<CheckboxProps>((props) => {
 
 	return (
 		<>
-			<input type="checkbox" aria-hidden tabIndex={-1} />
+			<input class="input" type="checkbox" aria-hidden tabIndex={-1} />
 			<button
 				type="button"
 				role="checkbox"
