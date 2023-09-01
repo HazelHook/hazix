@@ -1,5 +1,6 @@
 import { QwikIntrinsicElements, Slot, component$ } from "@builder.io/qwik"
 import { usePortalProviderContext } from "./dialog-context"
+import { getState } from "utils/index"
 
 export const Portal = component$<QwikIntrinsicElements["div"]>(({ class: classProp, ...props }) => {
 	const portalContext = usePortalProviderContext()
@@ -21,8 +22,10 @@ export const Portal = component$<QwikIntrinsicElements["div"]>(({ class: classPr
 })
 
 export const Content = component$<QwikIntrinsicElements["div"]>((props) => {
+	const portalContext = usePortalProviderContext()
+
 	return (
-		<div {...props} onClick$={(e) => e.stopPropagation()}>
+		<div {...props} onClick$={(e) => e.stopPropagation()} data-state={getState(portalContext.open.value)}>
 			<div class="flex flex-row justify-between">
 				<div class="mr-4">
 					<Slot name="title" />
@@ -46,7 +49,6 @@ export const Close = component$<ComboboxTriggerProps>((props) => {
 		<button
 			type="button"
 			{...props}
-			class={`${props.class}`}
 			onClick$={() => {
 				portalContext.open.value = false
 			}}

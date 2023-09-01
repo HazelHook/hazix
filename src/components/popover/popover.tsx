@@ -44,6 +44,8 @@ export type PopoverProps = QwikIntrinsicElements["span"] & {
 	 */
 	open?: boolean
 
+	defaultOpen?: boolean
+
 	/**
 	 * When true the popover is not closed when click outside
 	 */
@@ -55,7 +57,16 @@ export type PopoverProps = QwikIntrinsicElements["span"] & {
 }
 
 export const Popover = component$(
-	({ triggerEvent = "click", onOpenChange$, modal, offset, placement, open, ...restOfProps }: PopoverProps) => {
+	({
+		triggerEvent = "click",
+		onOpenChange$,
+		modal,
+		offset,
+		placement,
+		open,
+		defaultOpen,
+		...restOfProps
+	}: PopoverProps) => {
 		const wrapperRef = useSignal<HTMLElement>()
 		const triggerRef = useSignal<HTMLElement>()
 		const contentRef = useSignal<HTMLElement>()
@@ -80,7 +91,8 @@ export const Popover = component$(
     `)
 
 		const contextService = useStore({
-			open: false,
+			open: defaultOpen || false,
+			placement: placement,
 			triggerEvent,
 			setTriggerRef$,
 			setOverlayRef$,

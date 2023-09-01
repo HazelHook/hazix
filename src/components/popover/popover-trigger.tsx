@@ -10,6 +10,7 @@ import {
 } from "@builder.io/qwik"
 import { PopoverContext } from "./popover-context"
 import styles from "./popover-trigger.css?inline"
+import { getState } from "utils/index"
 
 export type PopoverTriggerProps = {
 	tabIndex?: number
@@ -33,6 +34,7 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(({ class: classes,
 			{...props}
 			role="button"
 			class={`popover-trigger ${classes}`}
+			data-state={getState(contextService.open)}
 			onMouseOver$={contextService.triggerEvent === "mouseOver" ? mouseOverHandler : undefined}
 		>
 			<Slot />
