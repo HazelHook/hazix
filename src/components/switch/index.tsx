@@ -1,64 +1,82 @@
-import { component$, type QwikIntrinsicElements, Signal, useSignal } from "@builder.io/qwik"
+import {
+	component$,
+	type QwikIntrinsicElements,
+	Signal,
+	useSignal,
+	useContextProvider,
+	useContext,
+	Slot,
+} from "@builder.io/qwik"
+import { SwitchContext } from "./switch-context"
 
 type SwitchCustomProps = {
 	/**
 	 * The controlled state of the toggle.
 	 */
-	pressed?: Signal<boolean>
+	checked?: Signal<boolean>
 	/**
 	 * The state of the toggle when initially rendered. Use `defaultPressed`
 	 * if you do not need to control the state of the toggle.
 	 * @defaultValue false
 	 */
-	defaultPressed?: boolean
+	defaultChecked?: boolean
+
+	required?: boolean
 }
 
-type SwitchProps = SwitchCustomProps & QwikIntrinsicElements["input"]
+export type SwitchProps = SwitchCustomProps & QwikIntrinsicElements["button"]
 
-export const Switch = component$<SwitchProps>((props) => {
+const Switch = component$<SwitchProps>((props) => {
 	const {
+		defaultChecked = false,
 		// eslint-disable-next-line qwik/use-method-usage
-		pressed = useSignal(props.defaultPressed),
-		defaultPressed = false,
-		// eslint-disable-next-line @typescript-eslint/no-unused-vars
-		class: _,
+		checked = useSignal(defaultChecked),
+		class: classes,
+		disabled,
+		required,
+		value = "on",
 		...buttonProps
 	} = props
 
-	return (
-		<div
-			class="relative inline-block w-10 h-6 bg-gray-600 p-1 cursor-pointer"
-			onClick$={() => {
-				pressed.value = !pressed.value
-			}}
-		>
-			<input
-				type="checkbox"
-				aria-pressed={pressed?.value ?? defaultPressed ?? false}
-				data-state={pressed?.value ? "on" : "off"}
-				data-disabled={props.disabled ? "" : undefined}
-				{...(buttonProps as any)}
-				class="absolute w-0 h-0 opacity-0"
-			/>
-			<span
-				class={(() => {
-					const baseClass = "absolute inline-block w-4 h-4 bg-white transition-transform transform"
+	useContextProvider(SwitchContext, { openSignal: checked, disabled })
 
-					if (pressed.value) {
-						return `${baseClass} translate-x-full`
-					}
-					return baseClass
-				})()}
-			/>
-		</div>
+	console.log(checked.value)
+	return (
+		<button
+			class={classes}
+			type="button"
+			role="switch"
+			aria-checked={checked.value}
+			aria-required={required}
+			data-state={getState(checked.value)}
+			data-disabled={disabled ? "" : undefined}
+			disabled={disabled}
+			value={value}
+			onClick$={() => {
+				console.log("HI")
+				checked.value = !checked.value
+			}}
+			{...buttonProps}
+		>
+			<Slot />
+		</button>
 	)
 })
 
-// export const SwitchThumb = component$<QwikIntrinsicElements["div"]>((props) => {
-//   return (
-//     <div
-//       class="absolute inline-block w-4 h-4 bg-white transition-transform transform"
-//       {...props}
-//     />
-//   );
-// }
+const SwitchThumb = component$<QwikIntrinsicElements["span"]>((props) => {
+	const context = useContext(SwitchContext)
+
+	return (
+		<span
+			data-state={getState(context.openSignal.value)}
+			data-disabled={context.disabled ? "" : undefined}
+			{...props}
+		/>
+	)
+})
+
+export function getState(checked: boolean) {
+	return checked ? "checked" : "unchecked"
+}
+
+export { Switch as Root, SwitchThumb as Thumb }
