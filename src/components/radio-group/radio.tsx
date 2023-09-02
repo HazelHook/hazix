@@ -56,7 +56,9 @@ const RadioIndicator = component$<RadioIndicatorProps>((props) => {
 			data-state={getState(radioGroupContext.value === radioContext.value)}
 			data-disabled={radioGroupContext.value === radioContext.value ? "" : undefined}
 			{...props}
-		/>
+		>
+			<Slot />
+		</span>
 	)
 })
 

@@ -103,7 +103,11 @@ const RadioGroupItem = component$<RadioGroupItemProps>((props) => {
 export type RadioGroupIndicatorProps = RadioIndicatorProps
 
 const RadioGroupIndicator = component$<RadioGroupIndicatorProps>((props) => {
-	return <RadioIndicator {...props} />
+	return (
+		<RadioIndicator {...props}>
+			<Slot />
+		</RadioIndicator>
+	)
 })
 
 const Root = RadioGroup
