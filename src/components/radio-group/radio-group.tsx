@@ -57,9 +57,9 @@ const RadioGroup = component$<RadioGroupProps>((props) => {
 	)
 })
 
-export type RadioGroupItem = RadioProps
+export type RadioGroupItemProps = RadioProps
 
-const RadioGroupItem = component$<RadioGroupItem>((props) => {
+const RadioGroupItem = component$<RadioGroupItemProps>((props) => {
 	// eslint-disable-next-line qwik/use-method-usage
 	const { disabled, value = useId(), ...itemProps } = props
 
