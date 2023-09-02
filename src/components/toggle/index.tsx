@@ -13,13 +13,13 @@ type ToggleCustomProps = {
 	defaultPressed?: boolean
 }
 
-type ToggleProps = ToggleCustomProps & QwikIntrinsicElements["button"]
+export type ToggleProps = ToggleCustomProps & QwikIntrinsicElements["button"]
 
 export const Toggle = component$((props: ToggleProps) => {
 	const {
-		// eslint-disable-next-line qwik/use-method-usage
-		pressed = useSignal(props.defaultPressed),
 		defaultPressed = false,
+		// eslint-disable-next-line qwik/use-method-usage
+		pressed = useSignal(defaultPressed),
 		...buttonProps
 	} = props
 

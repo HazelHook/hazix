@@ -229,6 +229,125 @@ export const MainPage = component$(() => {
 				</Dropdown.Portal>
 			</Dropdown.Root>
 
+			<Dropdown.Root>
+				<Dropdown.Trigger class="rounded-full w-[35px] h-[35px] inline-flex items-center justify-center text-violet11 bg-white shadow-[0_2px_10px] shadow-blackA7 outline-none hover:bg-violet3 focus:shadow-[0_0_0_2px] focus:shadow-black">
+					Hamburger Icon
+				</Dropdown.Trigger>
+
+				<Dropdown.Portal>
+					<Dropdown.Content
+						class="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+						// sideOffset={5}
+					>
+						<Dropdown.Item class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+							New Tab{" "}
+							<div class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
+								⌘+T
+							</div>
+						</Dropdown.Item>
+						<Dropdown.Item class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+							New Window{" "}
+							<div class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
+								⌘+N
+							</div>
+						</Dropdown.Item>
+						<Dropdown.Item
+							class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+							disabled
+						>
+							New Private Window{" "}
+							<div class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
+								⇧+⌘+N
+							</div>
+						</Dropdown.Item>
+						{/* <Dropdown.Sub>
+							<Dropdown.SubTrigger class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[state=open]:bg-violet4 data-[state=open]:text-violet11 data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1 data-[highlighted]:data-[state=open]:bg-violet9 data-[highlighted]:data-[state=open]:text-violet1">
+								More Tools
+								<div class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
+									<ChevronRightIcon />
+								</div>
+							</Dropdown.SubTrigger>
+							<Dropdown.Portal>
+								<Dropdown.SubContent
+									class="min-w-[220px] bg-white rounded-md p-[5px] shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade"
+									sideOffset={2}
+									alignOffset={-5}
+								>
+									<Dropdown.Item class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+										Save Page As…{" "}
+										<div class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
+											⌘+S
+										</div>
+									</Dropdown.Item>
+									<Dropdown.Item class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+										Create Shortcut…
+									</Dropdown.Item>
+									<Dropdown.Item class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+										Name Window…
+									</Dropdown.Item>
+									<Dropdown.Separator class="h-[1px] bg-violet6 m-[5px]" />
+									<Dropdown.Item class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1">
+										Developer Tools
+									</Dropdown.Item>
+								</Dropdown.SubContent>
+							</Dropdown.Portal>
+						</Dropdown.Sub>
+
+						<Dropdown.Separator class="h-[1px] bg-violet6 m-[5px]" />
+
+						<Dropdown.CheckboxItem
+							class="group text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+							checked={bookmarksChecked}
+							onCheckedChange={setBookmarksChecked}
+						>
+							<Dropdown.ItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
+								<CheckIcon />
+							</Dropdown.ItemIndicator>
+							Show Bookmarks{" "}
+							<div class="ml-auto pl-[20px] text-mauve11 group-data-[highlighted]:text-white group-data-[disabled]:text-mauve8">
+								⌘+B
+							</div>
+						</Dropdown.CheckboxItem>
+						<Dropdown.CheckboxItem
+							class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+							checked={urlsChecked}
+							onCheckedChange={setUrlsChecked}
+						>
+							<Dropdown.ItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
+								<CheckIcon />
+							</Dropdown.ItemIndicator>
+							Show Full URLs
+						</Dropdown.CheckboxItem>
+
+						<Dropdown.Separator class="h-[1px] bg-violet6 m-[5px]" />
+
+						<Dropdown.Label class="pl-[25px] text-xs leading-[25px] text-mauve11">People</Dropdown.Label>
+						<Dropdown.RadioGroup value={person} onValueChange={setPerson}>
+							<Dropdown.RadioItem
+								class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+								value="pedro"
+							>
+								<Dropdown.ItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
+									<DotFilledIcon />
+								</Dropdown.ItemIndicator>
+								Pedro Duarte
+							</Dropdown.RadioItem>
+							<Dropdown.RadioItem
+								class="text-[13px] leading-none text-violet11 rounded-[3px] flex items-center h-[25px] px-[5px] relative pl-[25px] select-none outline-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:bg-violet9 data-[highlighted]:text-violet1"
+								value="colm"
+							>
+								<Dropdown.ItemIndicator class="absolute left-0 w-[25px] inline-flex items-center justify-center">
+									<DotFilledIcon />
+								</Dropdown.ItemIndicator>
+								Colm Tuite
+							</Dropdown.RadioItem>
+						</Dropdown.RadioGroup> */}
+
+						<Dropdown.Arrow class="fill-white" />
+					</Dropdown.Content>
+				</Dropdown.Portal>
+			</Dropdown.Root>
+
 			<Dialog.Root>
 				<Dialog.Trigger class="bg-slate-800 text-white rounded-sm px-4 py-2 w-32">Open Dialog</Dialog.Trigger>
 				<Dialog.Portal class="bg-black bg-opacity-50">
