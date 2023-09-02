@@ -61,7 +61,7 @@ export const Popover = component$(
 		triggerEvent = "click",
 		onOpenChange$,
 		modal,
-		offset,
+		offset = 5,
 		placement,
 		open,
 		defaultOpen,
