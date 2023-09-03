@@ -99,6 +99,8 @@ export const Tab = component$((props: TabProps) => {
 		<button
 			id={`tab-${uniqueTabId}`}
 			data-tab-id={uniqueTabId}
+			data-state={isSelectedSig.value ? "active" : "inactive"}
+			data-disabled={props.disabled}
 			type="button"
 			role="tab"
 			ref={elementRefSig}

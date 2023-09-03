@@ -51,6 +51,7 @@ export const TabPanel = component$(({ ...props }: TabPanelProps) => {
 	return (
 		<div
 			data-tabpanel-id={panelUID}
+			data-state={isSelectedSig.value ? "active" : "inactive"}
 			id={`tabpanel-${panelUID}`}
 			role="tabpanel"
 			tabIndex={0}
