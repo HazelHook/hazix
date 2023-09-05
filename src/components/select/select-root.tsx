@@ -47,6 +47,11 @@ const Select = component$<SelectProps>((props) => {
 			onOpenChange?.(open)
 			this.open = open
 		}),
+		setTriggerRef$: $(function (this: SelectContext, ref) {
+			if (ref) {
+				this.triggerRef = ref
+			}
+		}),
 	})
 
 	useContextProvider(SelectContext, store)

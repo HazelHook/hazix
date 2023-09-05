@@ -9,6 +9,8 @@ export type SelectContext = {
 	onValueChange: QRL<(value: string) => void>
 	onOpenChange: QRL<(open: boolean) => void>
 	dir: Direction
+	triggerRef?: HTMLElement
+	setTriggerRef$: QRL<(ref: HTMLElement) => void>
 }
 
 export const SelectContext = createContextId<SelectContext>("select")
