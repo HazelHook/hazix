@@ -1,7 +1,13 @@
-import { component$ } from "@builder.io/qwik"
+import { QwikIntrinsicElements, Slot, component$ } from "@builder.io/qwik"
 
-const SelectValue = component$(() => {
-	return <span>XD</span>
+export type SelectValueProps = {} & Omit<QwikIntrinsicElements["span"], "placeholder">
+
+const SelectValue = component$<SelectValueProps>((props) => {
+	return (
+		<span {...props} style={{ pointerEvents: "none" }}>
+			<Slot name="placeholder" />
+		</span>
+	)
 })
 
 const Value = SelectValue

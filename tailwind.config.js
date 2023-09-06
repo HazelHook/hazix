@@ -1,7 +1,8 @@
-/** @type {import('tailwindcss').Config} */
+const { blackA, violet, mauve } = require("@radix-ui/colors")
 
 const defaultTheme = require("tailwindcss/defaultTheme")
 
+/** @type {import('tailwindcss').Config} */
 module.exports = {
 	content: ["./src/**/*.{js,ts,jsx,tsx,mdx}"],
 	theme: {
@@ -78,6 +79,11 @@ module.exports = {
 						transform: "rotate(215deg) translateX(-500px)",
 					},
 				},
+			},
+			colors: {
+				...mauve,
+				...blackA,
+				...violet,
 			},
 
 			boxShadow: {
