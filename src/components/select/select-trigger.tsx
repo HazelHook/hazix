@@ -1,4 +1,12 @@
-import { QwikIntrinsicElements, Slot, component$, useContext, useSignal, useVisibleTask$ } from "@builder.io/qwik"
+import {
+	QwikIntrinsicElements,
+	Slot,
+	component$,
+	useContext,
+	useSignal,
+	useTask$,
+	useVisibleTask$,
+} from "@builder.io/qwik"
 import { SelectContext } from "./select-context"
 import { KeyCode } from "utils/keycode.types"
 
@@ -18,17 +26,21 @@ const SelectTrigger = component$<SelectTriggerProps>((props) => {
 
 	const isDisabled = selectContext.disabled || disabled
 
-	const triggerRef = useSignal<HTMLElement>()
-	selectContext.triggerRefSig = triggerRef
+	const triggerRefSig = useSignal<HTMLElement>()
+
+	useTask$(({ track }) => {
+		const currTriggerRefSig = track(() => triggerRefSig)
+		selectContext.triggerRefSig = currTriggerRefSig
+	})
 
 	useVisibleTask$(function setClickHandler({ cleanup }) {
 		function clickHandler(e: Event) {
 			e.preventDefault()
 			selectContext.isOpenSig.value = !selectContext.isOpenSig.value
 		}
-		triggerRef.value?.addEventListener("click", clickHandler)
+		triggerRefSig.value?.addEventListener("click", clickHandler)
 		cleanup(() => {
-			triggerRef.value?.removeEventListener("click", clickHandler)
+			triggerRefSig.value?.removeEventListener("click", clickHandler)
 		})
 	})
 
@@ -41,15 +53,15 @@ const SelectTrigger = component$<SelectTriggerProps>((props) => {
 				selectContext.isOpenSig.value = true
 			}
 		}
-		triggerRef.value?.addEventListener("keydown", keyHandler)
+		triggerRefSig.value?.addEventListener("keydown", keyHandler)
 		cleanup(() => {
-			triggerRef.value?.removeEventListener("keydown", keyHandler)
+			triggerRefSig.value?.removeEventListener("keydown", keyHandler)
 		})
 	})
 
 	return (
 		<button
-			ref={triggerRef}
+			ref={triggerRefSig}
 			type="button"
 			role="combobox"
 			aria-controls={"context.contentId"}

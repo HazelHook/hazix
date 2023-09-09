@@ -1,12 +1,15 @@
 import { QwikIntrinsicElements, Slot, component$, useContext } from "@builder.io/qwik"
-import { SelectContext } from "./select-context"
+import { SelectItemContext } from "./select-item"
 
 export type SelectItemIndicatorProps = {} & QwikIntrinsicElements["div"]
 
 const SelectItemIndicator = component$<SelectItemIndicatorProps>((props) => {
-	const selectContext = useContext(SelectContext)
+	const selectItemContext = useContext(SelectItemContext)
 
-	// TODO: CREATE SELECT ITEM CONTEXT TO GET THE RIGHT VALUE HERE
+	if (!selectItemContext.isSelectedSig.value) {
+		return <></>
+	}
+
 	return (
 		<div {...props}>
 			<Slot />

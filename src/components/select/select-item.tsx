@@ -1,4 +1,15 @@
-import { QwikIntrinsicElements, Slot, component$, useContext, useSignal, useVisibleTask$ } from "@builder.io/qwik"
+import {
+	QwikIntrinsicElements,
+	Signal,
+	Slot,
+	component$,
+	createContextId,
+	useComputed$,
+	useContext,
+	useContextProvider,
+	useSignal,
+	useVisibleTask$,
+} from "@builder.io/qwik"
 import { KeyCode } from "utils/index"
 import { SelectContext } from "./select-context"
 
@@ -9,8 +20,19 @@ export type SelectItemProps = {
 
 export const selectOptionPreventedKeys = [KeyCode.ArrowDown, KeyCode.ArrowUp]
 
+type SelectItemContext = {
+	isSelectedSig: Signal<boolean>
+}
+
+export const SelectItemContext = createContextId<SelectItemContext>("select-item")
+
 const SelectItem = component$(({ disabled, value, ...props }: SelectItemProps) => {
 	const selectContext = useContext(SelectContext)
+
+	const isSelectedSig = useComputed$(() => selectContext.selectedOptionSig.value === value)
+
+	useContextProvider(SelectItemContext, { isSelectedSig })
+
 	const optionRef = useSignal<HTMLElement>()
 
 	const isFocusedSig = useSignal(false)
@@ -60,6 +82,7 @@ const SelectItem = component$(({ disabled, value, ...props }: SelectItemProps) =
 			aria-disabled={disabled}
 			aria-selected={value === selectContext.selectedOptionSig.value}
 			data-option-value={value}
+			data-disabled={disabled}
 			onClick$={() => {
 				if (!disabled) {
 					selectContext.selectedOptionSig.value = value

@@ -13,7 +13,7 @@ import {
 import { SelectContext } from "./select-context"
 import { VisuallyHidden } from "utils/components/visually-hidden"
 import { NativeSelect } from "./select-native-select"
-import { computePosition, flip } from "@floating-ui/dom"
+import { computePosition, flip, offset } from "@floating-ui/dom"
 
 type Direction = "ltr" | "rtl"
 
@@ -83,7 +83,7 @@ const Select = component$<SelectProps>((props) => {
 	const updatePosition$ = $((referenceEl: HTMLElement, floatingEl: HTMLElement) => {
 		computePosition(referenceEl, floatingEl, {
 			placement: "bottom",
-			middleware: [flip()],
+			middleware: [flip(), offset(10)],
 		}).then(({ x, y }) => {
 			Object.assign(floatingEl.style, {
 				left: `${x}px`,
