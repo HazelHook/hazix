@@ -5,7 +5,7 @@ export type SelectViewPortProps = {} & QwikIntrinsicElements["div"]
 const SelectViewPort = component$<SelectViewPortProps>((props) => {
 	return (
 		<>
-			{/* rome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
+			{/* biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation> */}
 			<style dangerouslySetInnerHTML="[data-hazix-select-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-hazix-select-viewport]::-webkit-scrollbar{display:none}" />
 			<div
 				data-hazix-select-viewport

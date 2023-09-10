@@ -5,9 +5,15 @@ import {
 	Slot,
 	component$,
 	useContextProvider,
+	useOnDocument,
+	useSignal,
 	useStore,
+	useVisibleTask$,
 } from "@builder.io/qwik"
 import { SelectContext } from "./select-context"
+import { VisuallyHidden } from "utils/components/visually-hidden"
+import { NativeSelect } from "./select-native-select"
+import { computePosition, flip } from "@floating-ui/dom"
 
 type Direction = "ltr" | "rtl"
 
@@ -22,40 +28,110 @@ export type SelectProps = {
 	name?: string
 	disabled?: boolean
 	required?: boolean
-} & QwikIntrinsicElements["select"]
+} & QwikIntrinsicElements["div"]
 
 const Select = component$<SelectProps>((props) => {
-	const {
-		defaultOpen = false,
-		open = defaultOpen,
-		disabled = false,
-		required = false,
-		dir = "ltr",
-		onValueChange,
-		onOpenChange,
-	} = props
-	const store = useStore<SelectContext>({
-		open,
-		disabled,
+	const { defaultOpen = false, open = defaultOpen, disabled = false, required = false, dir = "ltr" } = props
+
+	const rootRefSig = useSignal<HTMLElement>()
+	const optionsStore = useStore([])
+	const selectedOptionSig = useSignal("")
+	const isOpenSig = useSignal(open)
+	const triggerRefSig = useSignal<HTMLElement>()
+	const listBoxRefSig = useSignal<HTMLElement>()
+	const isListboxHiddenSig = useSignal(true)
+
+	const selectContext: SelectContext = {
 		required,
+		disabled,
 		dir,
-		onValueChange: $(function (this: SelectContext, val) {
-			onValueChange?.(val)
-			this.value = val
-		}),
-		onOpenChange: $(function (this: SelectContext, open) {
-			onOpenChange?.(open)
-			this.open = open
-		}),
-		setTriggerRef$: $(function (this: SelectContext, ref) {
-			if (ref) {
-				this.triggerRef = ref
-			}
-		}),
-	})
+		optionsStore,
+		selectedOptionSig,
+		isOpenSig,
+		triggerRefSig,
+		listBoxRefSig,
+		isListboxHiddenSig,
+	}
+
+	const store = useStore<SelectContext>(selectContext)
 
 	useContextProvider(SelectContext, store)
-	return <Slot />
+
+	useOnDocument(
+		"click",
+		$((e) => {
+			const target = e.target as HTMLElement
+			if (selectContext.isOpenSig.value === true && !rootRefSig.value?.contains(target)) {
+				selectContext.isOpenSig.value = false
+			}
+		}),
+	)
+
+	useVisibleTask$(function setKeyHandler({ cleanup }) {
+		function keyHandler(e: KeyboardEvent) {
+			e.preventDefault()
+			if (e.key === "Escape") {
+				selectContext.isOpenSig.value = false
+			}
+		}
+		rootRefSig.value?.addEventListener("keydown", keyHandler)
+		cleanup(() => {
+			rootRefSig.value?.removeEventListener("keydown", keyHandler)
+		})
+	})
+
+	const updatePosition$ = $((referenceEl: HTMLElement, floatingEl: HTMLElement) => {
+		computePosition(referenceEl, floatingEl, {
+			placement: "bottom",
+			middleware: [flip()],
+		}).then(({ x, y }) => {
+			Object.assign(floatingEl.style, {
+				left: `${x}px`,
+				top: `${y}px`,
+			})
+		})
+	})
+
+	useVisibleTask$(async function toggleSelectListBox({ track }) {
+		const trigger = track(() => selectContext.triggerRefSig.value)
+		const listBox = track(() => selectContext.listBoxRefSig.value)
+		const expanded = track(() => selectContext.isOpenSig.value)
+
+		if (!trigger || !listBox) return
+
+		if (expanded === true) {
+			// Will fix this visibility workaround asap.
+			listBox.style.visibility = "hidden"
+			await updatePosition$(trigger, listBox)
+			listBox.style.visibility = "visible"
+			isListboxHiddenSig.value = false
+			listBox?.focus()
+		}
+
+		if (expanded === false) {
+			trigger?.focus()
+		}
+	})
+
+	useVisibleTask$(function collectOptions({ track }) {
+		const listBox = track(() => selectContext.listBoxRefSig.value)
+
+		if (listBox) {
+			const collectedOptions = Array.from(listBox.querySelectorAll('[role="option"]')) as HTMLElement[]
+			selectContext.optionsStore.push(...collectedOptions)
+		}
+	})
+
+	return (
+		<div ref={rootRefSig} {...props}>
+			<Slot />
+			{props.required ? (
+				<VisuallyHidden>
+					<NativeSelect />
+				</VisuallyHidden>
+			) : null}
+		</div>
+	)
 })
 
 const Root = Select
