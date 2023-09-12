@@ -2,32 +2,34 @@ import { QwikIntrinsicElements, component$, $, Slot } from "@builder.io/qwik"
 import { usePortalProviderContext } from "./dialog-context"
 import { getState } from "utils/index"
 
-export type ComboboxTriggerProps = {
+export type DialogTriggerProps = {
 	dialog?: string
 } & QwikIntrinsicElements["button"]
 
-export const Trigger = component$<ComboboxTriggerProps>((props) => {
+const DialogTrigger = component$<DialogTriggerProps>((props) => {
 	const portalContext = usePortalProviderContext()
 
 	const onClick = $(() => {
-		if (portalContext.open) {
-			portalContext.open.value = !portalContext.open.value
+		if (portalContext.openSig) {
+			portalContext.openSig.value = !portalContext.openSig.value
 		}
 	})
 
 	return (
-		<>
-			<button
-				tabIndex={-1}
-				type="button"
-				aria-haspopup="dialog"
-				aria-expanded={portalContext.open.value}
-				data-state={getState(portalContext.open.value)}
-				{...props}
-				onClick$={onClick}
-			>
-				<Slot />
-			</button>
-		</>
+		<button
+			tabIndex={-1}
+			type="button"
+			aria-haspopup="dialog"
+			aria-expanded={portalContext.openSig.value}
+			data-state={getState(portalContext.openSig.value)}
+			onClick$={onClick}
+			{...props}
+		>
+			<Slot />
+		</button>
 	)
 })
+
+const Trigger = DialogTrigger
+
+export { DialogTrigger, Trigger }

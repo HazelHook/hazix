@@ -1,3 +1,4 @@
-export { Root } from "./dialog-root"
-export { Portal, Close, Content } from "./dialog-portal"
-export { Trigger } from "./dialog-trigger"
+export * from "./dialog-root"
+export * from "./dialog-portal"
+export * from "./dialog-content"
+export * from "./dialog-trigger"

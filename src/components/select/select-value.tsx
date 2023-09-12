@@ -6,6 +6,7 @@ export type SelectValueProps = {} & Omit<QwikIntrinsicElements["span"], "placeho
 const SelectValue = component$<SelectValueProps>((props) => {
 	const selectContext = useContext(SelectContext)
 	const value = selectContext.selectedOptionSig.value
+
 	return (
 		<span {...props} style={{ pointerEvents: "none" }}>
 			{value ? value : <Slot name="placeholder" />}

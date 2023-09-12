@@ -1,7 +1,8 @@
 import { Signal, createContextId, useContext, useContextProvider } from "@builder.io/qwik"
 
 export type PortalProviderContext = {
-	open: Signal<boolean>
+	openSig: Signal<boolean>
+	contentRefSig: Signal<HTMLElement | undefined>
 }
 
 const portalProviderContextId = createContextId<PortalProviderContext>("portal-provider")
