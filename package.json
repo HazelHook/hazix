@@ -1,6 +1,6 @@
 {
 	"name": "@hazix/primitives",
-	"version": "0.0.25",
+	"version": "0.0.26",
 	"description": "Create a reusable Qwik component library",
 	"main": "./lib/index.qwik.mjs",
 	"qwik": "./lib/index.qwik.mjs",
