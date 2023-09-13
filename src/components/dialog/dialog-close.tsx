@@ -2,7 +2,7 @@ import { QwikIntrinsicElements, Slot, component$ } from "@builder.io/qwik"
 import { usePortalProviderContext } from "./dialog-context"
 
 export type DialogCloseProps = {
-	class: string
+	class?: string
 } & QwikIntrinsicElements["button"]
 
 const DialogClose = component$<DialogCloseProps>((props) => {
