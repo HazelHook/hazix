@@ -19,7 +19,7 @@ export type AccordionRootProps = {
 	onFocusIndexChange$?: PropFunction<(index: number) => void>
 } & QwikIntrinsicElements["div"]
 
-export const AccordionRoot = component$(
+const AccordionRoot = component$(
 	({
 		collapsible = true,
 		type = "single",
@@ -55,7 +55,9 @@ export const AccordionRoot = component$(
 			}
 
 			// needs to grab a new array when adding or removing elements dynamically.
-			const getLatestTriggers = Array.from(rootElement.querySelectorAll("[data-trigger-id]")) as HTMLButtonElement[]
+			const getLatestTriggers = Array.from(
+				rootElement.querySelectorAll("[data-trigger-id]"),
+			) as HTMLButtonElement[]
 
 			triggerElementsSig.value = getLatestTriggers.filter((element) => {
 				if (element.getAttribute("aria-disabled") === "true") {
@@ -125,3 +127,7 @@ export const AccordionRoot = component$(
 		)
 	},
 )
+
+const Root = AccordionRoot
+
+export { AccordionRoot, Root }

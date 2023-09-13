@@ -26,7 +26,7 @@ export type AccordionTriggerProps = {
 	disabled?: boolean
 } & QwikIntrinsicElements["button"]
 
-export const AccordionTrigger = component$(({ disabled, ...props }: AccordionTriggerProps) => {
+const AccordionTrigger = component$(({ disabled, ...props }: AccordionTriggerProps) => {
 	const contextService = useContext(accordionRootContextId)
 	const itemContext = useContext(accordionItemContextId)
 
@@ -160,3 +160,7 @@ export const AccordionTrigger = component$(({ disabled, ...props }: AccordionTri
 		</button>
 	)
 })
+
+const Trigger = AccordionTrigger
+
+export { AccordionTrigger, Trigger }

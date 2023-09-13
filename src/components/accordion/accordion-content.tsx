@@ -14,7 +14,7 @@ import { accordionItemContextId, accordionRootContextId } from "./accordion-cont
 
 export type AccordionContentProps = QwikIntrinsicElements["div"]
 
-export const AccordionContent = component$(({ ...props }: AccordionContentProps) => {
+const AccordionContent = component$(({ ...props }: AccordionContentProps) => {
 	const contextService = useContext(accordionRootContextId)
 	const itemContext = useContext(accordionItemContextId)
 
@@ -118,3 +118,7 @@ export const AccordionContent = component$(({ ...props }: AccordionContentProps)
 		</div>
 	)
 })
+
+const Content = AccordionContent
+
+export { AccordionContent, Content }

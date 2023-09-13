@@ -6,7 +6,7 @@ export type AccordionItemProps = {
 	defaultValue?: boolean
 } & QwikIntrinsicElements["div"]
 
-export const AccordionItem = component$(({ defaultValue = false, id, ...props }: AccordionItemProps) => {
+const AccordionItem = component$(({ defaultValue = false, id, ...props }: AccordionItemProps) => {
 	const localId = useId()
 	const itemId = id || localId
 
@@ -26,3 +26,7 @@ export const AccordionItem = component$(({ defaultValue = false, id, ...props }:
 		</div>
 	)
 })
+
+const Item = AccordionItem
+
+export { AccordionItem, Item }

@@ -7,7 +7,7 @@ export type AccordionHeaderProps = QwikIntrinsicElements[HeadingUnion] & {
 	as?: HeadingUnion
 }
 
-export const AccordionHeader = component$(({ as = "h3", ...props }: AccordionHeaderProps) => {
+const AccordionHeader = component$(({ as = "h3", ...props }: AccordionHeaderProps) => {
 	const itemContext = useContext(accordionItemContextId)
 	const itemId = itemContext.itemId
 	const headerId = `${itemId}-header`
@@ -20,3 +20,7 @@ export const AccordionHeader = component$(({ as = "h3", ...props }: AccordionHea
 		</PolymorphicHeading>
 	)
 })
+
+const Header = AccordionHeader
+
+export { AccordionHeader, Header }
