@@ -1,5 +1,6 @@
 import { QwikIntrinsicElements, Slot, component$ } from "@builder.io/qwik"
 import { usePortalProviderContext } from "./dialog-context"
+import { KeyCode } from "utils/keycode.types"
 
 export type DialogCloseProps = {
 	class: string
@@ -15,8 +16,8 @@ const DialogClose = component$<DialogCloseProps>((props) => {
 			onClick$={() => {
 				portalContext.openSig.value = false
 			}}
-			window:onKeyDown$={(e) => {
-				if (e.key === "Escape") portalContext.openSig.value = false
+			document:onKeyDown$={(e) => {
+				if (e.key === KeyCode.Escape) portalContext.openSig.value = false
 			}}
 		>
 			<Slot />

@@ -23,9 +23,9 @@ const DialogPortal = component$<DialogPortalProps>((props) => {
 		<div
 			ref={base}
 			{...props}
-			onClick$={() => {
-				portalContext.openSig.value = false
-			}}
+			// onClick$={() => {
+			// 	portalContext.openSig.value = false
+			// }}
 			hidden={!portalContext.openSig.value}
 		>
 			<Slot />
