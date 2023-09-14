@@ -3,6 +3,7 @@ import { usePortalProviderContext } from "./dialog-context"
 
 export type DialogCloseProps = {
 	class?: string
+	xd?: string
 } & QwikIntrinsicElements["button"]
 
 const DialogClose = component$<DialogCloseProps>((props) => {

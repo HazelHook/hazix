@@ -1,34 +1,39 @@
-import { QwikIntrinsicElements, component$, $, Slot } from "@builder.io/qwik"
+import { component$, $, Slot, type QwikIntrinsicElements } from "@builder.io/qwik"
 import { usePortalProviderContext } from "./dialog-context"
 import { getState } from "utils/index"
 
-export type DialogTriggerProps = {
-	dialog?: string
-} & QwikIntrinsicElements["button"]
+type AsProp<T extends keyof QwikIntrinsicElements> = {
+	as?: T
+}
 
-const DialogTrigger = component$<DialogTriggerProps>((props) => {
-	const portalContext = usePortalProviderContext()
+export type DialogTriggerProps<T extends keyof QwikIntrinsicElements> = AsProp<T> & QwikIntrinsicElements[T]
 
-	const onClick = $(() => {
-		if (portalContext.openSig) {
-			portalContext.openSig.value = !portalContext.openSig.value
-		}
-	})
+const DialogTrigger = component$(
+	({ as: Tag = "button" as any, ...props }: DialogTriggerProps<keyof QwikIntrinsicElements>) => {
+		const portalContext = usePortalProviderContext()
 
-	return (
-		<button
-			tabIndex={-1}
-			type="button"
-			aria-haspopup="dialog"
-			aria-expanded={portalContext.openSig.value}
-			data-state={getState(portalContext.openSig.value)}
-			onClick$={onClick}
-			{...props}
-		>
-			<Slot />
-		</button>
-	)
-})
+		const onClick = $(() => {
+			if (portalContext.openSig) {
+				portalContext.openSig.value = !portalContext.openSig.value
+			}
+		})
+
+		const Comp = Tag as any
+
+		return (
+			<Comp
+				tabIndex={-1}
+				aria-haspopup="dialog"
+				aria-expanded={portalContext.openSig.value}
+				data-state={getState(portalContext.openSig.value)}
+				onClick$={onClick}
+				{...props}
+			>
+				<Slot />
+			</Comp>
+		)
+	},
+)
 
 const Trigger = DialogTrigger
 
