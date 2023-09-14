@@ -6,7 +6,7 @@ export type DialogTriggerProps<C extends keyof QwikIntrinsicElements = "button">
 	as?: C
 }
 
-export type HtmlElements = "div" | "a" | "span" | "button" | "ul" | "li" | "i" | "b" | "em" | "strong"
+export type HtmlElements = "div" | "a" | "span" | "button" | "ul" | "li" | "i" | "b" | "em" | "strong" | any
 
 const DialogTrigger = component$<DialogTriggerProps<HtmlElements>>(({ as: Tag = "button" as any, ...props }) => {
 	const portalContext = usePortalProviderContext()
