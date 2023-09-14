@@ -1,17 +1,14 @@
-import { component$, $, Slot, type QwikIntrinsicElements, Component } from "@builder.io/qwik"
+import { component$, $, Slot, type QwikIntrinsicElements } from "@builder.io/qwik"
 import { usePortalProviderContext } from "./dialog-context"
 import { getState } from "utils/index"
 
-type AsProp<T extends {} | keyof QwikIntrinsicElements> = T extends keyof QwikIntrinsicElements
-	? { as?: QwikIntrinsicElements[T] }
-	: { as?: Component<T> }
+export type DialogTriggerProps<C extends keyof QwikIntrinsicElements = "button"> = QwikIntrinsicElements[C] & {
+	as?: C
+}
 
-export type DialogTriggerProps<T extends {} | keyof QwikIntrinsicElements> = AsProp<T> &
-	T extends keyof QwikIntrinsicElements
-	? QwikIntrinsicElements[T]
-	: T
+export type HtmlElements = "div" | "a" | "span" | "button" | "ul" | "li" | "i" | "b" | "em" | "strong"
 
-const DialogTrigger = component$(<T extends {}>({ as: Tag = "button" as any, ...props }: DialogTriggerProps<T>) => {
+const DialogTrigger = component$<DialogTriggerProps<HtmlElements>>(({ as: Tag = "button" as any, ...props }) => {
 	const portalContext = usePortalProviderContext()
 
 	const onClick = $(() => {
