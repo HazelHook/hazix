@@ -13,7 +13,7 @@ import {
 import { SelectContext } from "./select-context"
 import { VisuallyHidden } from "utils/components/visually-hidden"
 import { NativeSelect } from "./select-native-select"
-import { computePosition, flip, offset } from "@floating-ui/dom"
+import { Placement, autoUpdate, computePosition, flip, offset as offsetMid } from "@floating-ui/dom"
 
 type Direction = "ltr" | "rtl"
 
@@ -28,10 +28,20 @@ export type SelectProps = {
 	name?: string
 	disabled?: boolean
 	required?: boolean
+	position?: Placement
+	offset?: number
 } & QwikIntrinsicElements["div"]
 
 const Select = component$<SelectProps>((props) => {
-	const { defaultOpen = false, open = defaultOpen, disabled = false, required = false, dir = "ltr" } = props
+	const {
+		defaultOpen = false,
+		open = defaultOpen,
+		disabled = false,
+		required = false,
+		dir = "ltr",
+		position = "bottom",
+		offset = 10,
+	} = props
 
 	const rootRefSig = useSignal<HTMLElement>()
 	const optionsStore = useStore([])
@@ -82,8 +92,8 @@ const Select = component$<SelectProps>((props) => {
 
 	const updatePosition$ = $((referenceEl: HTMLElement, floatingEl: HTMLElement) => {
 		computePosition(referenceEl, floatingEl, {
-			placement: "bottom",
-			middleware: [flip(), offset(10)],
+			placement: position,
+			middleware: [flip(), offsetMid(offset)],
 		}).then(({ x, y }) => {
 			Object.assign(floatingEl.style, {
 				left: `${x}px`,
@@ -94,23 +104,31 @@ const Select = component$<SelectProps>((props) => {
 
 	useVisibleTask$(async function toggleSelectListBox({ track }) {
 		const trigger = track(() => selectContext.triggerRefSig.value)
-		const listBox = track(() => selectContext.listBoxRefSig.value)
+		const content = track(() => selectContext.listBoxRefSig.value)
 		const expanded = track(() => selectContext.isOpenSig.value)
 
-		if (!trigger || !listBox) return
+		if (!trigger || !content) return
 
-		if (expanded === true) {
-			// Will fix this visibility workaround asap.
-			listBox.style.visibility = "hidden"
-			await updatePosition$(trigger, listBox)
-			listBox.style.visibility = "visible"
-			isListboxHiddenSig.value = false
-			listBox?.focus()
-		}
+		updatePosition$(trigger, content)
 
-		if (expanded === false) {
+		if (expanded) {
+			content?.focus()
+		} else {
 			trigger?.focus()
 		}
+	})
+
+	useVisibleTask$(({ cleanup }) => {
+		const trigger = selectContext.triggerRefSig.value
+		const content = selectContext.listBoxRefSig.value
+
+		if (!trigger || !content) return
+
+		updatePosition$(trigger, content)
+
+		const updater = autoUpdate(trigger, content, async () => await updatePosition$(trigger, content))
+
+		cleanup(() => updater())
 	})
 
 	useVisibleTask$(function collectOptions({ track }) {

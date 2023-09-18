@@ -1,5 +1,6 @@
 export * from "./select-root"
 export * from "./select-content"
+export * from "./select-portal"
 export * from "./select-group"
 export * from "./select-icon"
 export * from "./select-item"

@@ -1,4 +1,12 @@
-import { component$, QwikIntrinsicElements, Slot, useContext, useSignal, useVisibleTask$ } from "@builder.io/qwik"
+import {
+	component$,
+	QwikIntrinsicElements,
+	Slot,
+	useContext,
+	useSignal,
+	useTask$,
+	useVisibleTask$,
+} from "@builder.io/qwik"
 import { SelectContext } from "./select-context"
 import { KeyCode } from "utils/keycode.types"
 
@@ -7,7 +15,11 @@ export type SelectContentProps = QwikIntrinsicElements["div"]
 const SelectContent = component$(({ style, ...props }: SelectContentProps) => {
 	const listBoxRef = useSignal<HTMLElement>()
 	const selectContext = useContext(SelectContext)
-	selectContext.listBoxRefSig = listBoxRef
+
+	useTask$(({ track }) => {
+		const ref = track(() => listBoxRef)
+		selectContext.listBoxRefSig = ref
+	})
 
 	useVisibleTask$(function setKeyHandler({ cleanup }) {
 		function keyHandler(e: KeyboardEvent) {
@@ -48,13 +60,10 @@ const SelectContent = component$(({ style, ...props }: SelectContentProps) => {
 			ref={listBoxRef}
 			role="listbox"
 			tabIndex={0}
-			hidden={!selectContext.isListboxHiddenSig.value}
 			style={`
-		  display: ${selectContext.isOpenSig.value ? "block" : "none"};
-		  position: absolute;
-		  z-index: 1;
-		  ${style}
-		`}
+			  position: absolute;
+			  ${style}
+			`}
 			{...props}
 		>
 			<Slot />

@@ -220,6 +220,82 @@ export const MainPage = component$(() => {
 
 			<Separator class="bg-white" />
 
+			<Select.Root>
+				<Select.Trigger
+					class="inline-flex items-center justify-center rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-violet11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-violet9 outline-none"
+					aria-label="Food"
+				>
+					<Select.Value>
+						<p q:slot="placeholder">Select a fruit…</p>
+					</Select.Value>
+					<Select.Icon class="text-violet11">
+						<svg
+							xmlns="http://www.w3.org/2000/svg"
+							class="icon icon-tabler icon-tabler-chevron-down"
+							width="24"
+							height="24"
+							viewBox="0 0 24 24"
+							stroke-width="2"
+							stroke="currentColor"
+							fill="none"
+							stroke-linecap="round"
+							stroke-linejoin="round"
+						>
+							<title>Chevron Down</title>
+							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
+							<path d="M6 9l6 6l6 -6" />
+						</svg>
+					</Select.Icon>
+				</Select.Trigger>
+				<Select.Portal>
+					<Select.Content class="overflow-hidden bg-white rounded-md shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]">
+						{/* <Select.ScrollUpButton class="flex items-center justify-center h-[25px] bg-white text-violet11 cursor-default">
+							<ChevronUpIcon />
+						</Select.ScrollUpButton> */}
+						<Select.Viewport class="p-[5px]">
+							<Select.Group>
+								<Select.Label class="px-[25px] text-xs leading-[25px] text-mauve11">
+									Fruits
+								</Select.Label>
+								<SelectItem value="apple">Apple</SelectItem>
+								<SelectItem value="banana">Banana</SelectItem>
+								<SelectItem value="blueberry">Blueberry</SelectItem>
+								<SelectItem value="grapes">Grapes</SelectItem>
+								<SelectItem value="pineapple">Pineapple</SelectItem>
+							</Select.Group>
+
+							<Select.Separator class="h-[1px] bg-violet6 m-[5px]" />
+
+							<Select.Group>
+								<Select.Label class="px-[25px] text-xs leading-[25px] text-mauve11">
+									Vegetables
+								</Select.Label>
+								<SelectItem value="aubergine">Aubergine</SelectItem>
+								<SelectItem value="broccoli">Broccoli</SelectItem>
+								<SelectItem value="carrot" disabled>
+									Carrot
+								</SelectItem>
+								<SelectItem value="courgette">Courgette</SelectItem>
+								<SelectItem value="leek">Leek</SelectItem>
+							</Select.Group>
+
+							<Select.Separator class="h-[1px] bg-violet6 m-[5px]" />
+
+							<Select.Group>
+								<Select.Label class="px-[25px] text-xs leading-[25px] text-mauve11">Meat</Select.Label>
+								<SelectItem value="beef">Beef</SelectItem>
+								<SelectItem value="chicken">Chicken</SelectItem>
+								<SelectItem value="lamb">Lamb</SelectItem>
+								<SelectItem value="pork">Pork</SelectItem>
+							</Select.Group>
+						</Select.Viewport>
+						{/* <Select.ScrollDownButton class="flex items-center justify-center h-[25px] bg-white text-violet11 cursor-default">
+							<ChevronDownIcon />
+						</Select.ScrollDownButton> */}
+					</Select.Content>
+				</Select.Portal>
+			</Select.Root>
+
 			<Dropdown.Root>
 				<Dropdown.Trigger class="bg-slate-800 text-white rounded-xs px-4 py-2">Open Dropdown</Dropdown.Trigger>
 				<Dropdown.Portal>
@@ -432,77 +508,6 @@ export const MainPage = component$(() => {
 					</Label>
 				</div>
 			</RadioGroup.Root>
-			<Select.Root>
-				<Select.Trigger
-					class="inline-flex items-center justify-center rounded px-[15px] text-[13px] leading-none h-[35px] gap-[5px] bg-white text-violet11 shadow-[0_2px_10px] shadow-black/10 hover:bg-mauve3 focus:shadow-[0_0_0_2px] focus:shadow-black data-[placeholder]:text-violet9 outline-none"
-					aria-label="Food"
-				>
-					<Select.Value>
-						<p q:slot="placeholder">Select a fruit…</p>
-					</Select.Value>
-					<Select.Icon class="text-violet11">
-						<svg
-							xmlns="http://www.w3.org/2000/svg"
-							class="icon icon-tabler icon-tabler-chevron-down"
-							width="24"
-							height="24"
-							viewBox="0 0 24 24"
-							stroke-width="2"
-							stroke="currentColor"
-							fill="none"
-							stroke-linecap="round"
-							stroke-linejoin="round"
-						>
-							<title>Chevron Down</title>
-							<path stroke="none" d="M0 0h24v24H0z" fill="none" />
-							<path d="M6 9l6 6l6 -6" />
-						</svg>
-					</Select.Icon>
-				</Select.Trigger>
-				<Select.Content class="overflow-hidden bg-white rounded-md shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)]">
-					{/* <Select.ScrollUpButton class="flex items-center justify-center h-[25px] bg-white text-violet11 cursor-default">
-							<ChevronUpIcon />
-						</Select.ScrollUpButton> */}
-					<Select.Viewport class="p-[5px]">
-						<Select.Group>
-							<Select.Label class="px-[25px] text-xs leading-[25px] text-mauve11">Fruits</Select.Label>
-							<SelectItem value="apple">Apple</SelectItem>
-							<SelectItem value="banana">Banana</SelectItem>
-							<SelectItem value="blueberry">Blueberry</SelectItem>
-							<SelectItem value="grapes">Grapes</SelectItem>
-							<SelectItem value="pineapple">Pineapple</SelectItem>
-						</Select.Group>
-
-						<Select.Separator class="h-[1px] bg-violet6 m-[5px]" />
-
-						<Select.Group>
-							<Select.Label class="px-[25px] text-xs leading-[25px] text-mauve11">
-								Vegetables
-							</Select.Label>
-							<SelectItem value="aubergine">Aubergine</SelectItem>
-							<SelectItem value="broccoli">Broccoli</SelectItem>
-							<SelectItem value="carrot" disabled>
-								Carrot
-							</SelectItem>
-							<SelectItem value="courgette">Courgette</SelectItem>
-							<SelectItem value="leek">Leek</SelectItem>
-						</Select.Group>
-
-						<Select.Separator class="h-[1px] bg-violet6 m-[5px]" />
-
-						<Select.Group>
-							<Select.Label class="px-[25px] text-xs leading-[25px] text-mauve11">Meat</Select.Label>
-							<SelectItem value="beef">Beef</SelectItem>
-							<SelectItem value="chicken">Chicken</SelectItem>
-							<SelectItem value="lamb">Lamb</SelectItem>
-							<SelectItem value="pork">Pork</SelectItem>
-						</Select.Group>
-					</Select.Viewport>
-					{/* <Select.ScrollDownButton class="flex items-center justify-center h-[25px] bg-white text-violet11 cursor-default">
-							<ChevronDownIcon />
-						</Select.ScrollDownButton> */}
-				</Select.Content>
-			</Select.Root>
 		</div>
 	)
 })
