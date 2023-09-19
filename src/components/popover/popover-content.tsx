@@ -18,8 +18,9 @@ export const PopoverContent = component$<PopoverContentProps>(({ class: classes,
 	const contextService = useContext(PopoverContext)
 	useStylesScoped$(styles)
 
-	useVisibleTask$(() => {
-		contextService.setOverlayRef$(ref)
+	useVisibleTask$(({ track }) => {
+		track(() => ref)
+		contextService.contentRef = ref
 	})
 
 	return (
@@ -28,7 +29,7 @@ export const PopoverContent = component$<PopoverContentProps>(({ class: classes,
 			role="dialog"
 			aria-modal="true"
 			aria-label="Popover"
-			data-state={getState(contextService.open)}
+			data-state={getState(contextService.openSig.value)}
 			class={`popover-content ${classes}`}
 			{...rest}
 		>

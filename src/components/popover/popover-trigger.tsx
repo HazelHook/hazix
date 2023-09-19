@@ -21,20 +21,23 @@ export const PopoverTrigger = component$<PopoverTriggerProps>(({ class: classes,
 	const contextService = useContext(PopoverContext)
 	useStylesScoped$(styles)
 
-	useVisibleTask$(() => {
-		contextService.setTriggerRef$(ref)
+	useVisibleTask$(({ track }) => {
+		track(() => ref)
+		contextService.triggerRef = ref
 	})
 
 	const mouseOverHandler = $(() => {
-		contextService.open = true
+		contextService.openSig.value = true
 	})
+
 	return (
 		<span
 			ref={ref}
 			{...props}
 			role="button"
 			class={`popover-trigger ${classes}`}
-			data-state={getState(contextService.open)}
+			data-state={getState(contextService.openSig.value)}
+			onClick$={contextService.triggerEvent === "click" ? mouseOverHandler : undefined}
 			onMouseOver$={contextService.triggerEvent === "mouseOver" ? mouseOverHandler : undefined}
 		>
 			<Slot />

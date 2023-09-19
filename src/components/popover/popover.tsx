@@ -42,7 +42,7 @@ export type PopoverProps = QwikIntrinsicElements["span"] & {
 	/**
 	 * Open or close the popover when popover is controlled by the parent
 	 */
-	open?: boolean
+	open?: Signal<boolean>
 
 	defaultOpen?: boolean
 
@@ -64,24 +64,14 @@ export const Popover = component$(
 		offset = 5,
 		placement,
 		open,
-		defaultOpen,
+		defaultOpen = false,
 		...restOfProps
 	}: PopoverProps) => {
+		// eslint-disable-next-line qwik/use-method-usage
+		const openSig = open || useSignal<boolean>(defaultOpen)
 		const wrapperRef = useSignal<HTMLElement>()
 		const triggerRef = useSignal<HTMLElement>()
 		const contentRef = useSignal<HTMLElement>()
-
-		const setOverlayRef$ = $((ref: Signal<HTMLElement | undefined>) => {
-			if (ref) {
-				contentRef.value = ref.value
-			}
-		})
-
-		const setTriggerRef$ = $((ref: Signal<HTMLElement | undefined>) => {
-			if (ref) {
-				triggerRef.value = ref.value
-			}
-		})
 
 		//relative here because absolute needs a containing block - Jack
 		useStylesScoped$(`
@@ -91,11 +81,11 @@ export const Popover = component$(
     `)
 
 		const contextService = useStore({
-			open: defaultOpen || false,
+			openSig,
 			placement: placement,
 			triggerEvent,
-			setTriggerRef$,
-			setOverlayRef$,
+			triggerRef,
+			contentRef,
 		})
 		useContextProvider(PopoverContext, contextService)
 
@@ -103,41 +93,41 @@ export const Popover = component$(
 		 * Close the popover and sync external states
 		 */
 		const closePopover = $(async () => {
-			contextService.open = false
+			contextService.openSig.value = false
 
 			if (contentRef) {
 				contentRef.value?.classList.add("close")
 				contentRef.value?.classList.remove("open")
 			}
 
-			if (onOpenChange$) await onOpenChange$(contextService.open)
+			if (onOpenChange$) await onOpenChange$(contextService.openSig.value)
 		})
 
 		/**
 		 * Open the popover and sync external states
 		 */
 		const openPopover = $(async () => {
-			contextService.open = true
+			contextService.openSig.value = true
 
 			if (contentRef) {
 				contentRef.value?.classList.add("open")
 				contentRef.value?.classList.remove("close")
 			}
 
-			if (onOpenChange$) await onOpenChange$(contextService.open)
+			if (onOpenChange$) await onOpenChange$(contextService.openSig.value)
 		})
 
 		/**
 		 * Toggle the popover state and emit update
 		 */
 		const togglePopover = $(async () => {
-			if (contextService.open) {
+			if (contextService.openSig.value) {
 				closePopover()
 			} else {
 				openPopover()
 			}
 
-			if (onOpenChange$) await onOpenChange$(contextService.open)
+			if (onOpenChange$) await onOpenChange$(contextService.openSig.value)
 		})
 
 		/**
@@ -175,7 +165,7 @@ export const Popover = component$(
 		 */
 		useVisibleTask$(({ track }) => {
 			track(() => open)
-			contextService.open = !!open
+			contextService.openSig.value = !!open
 		})
 
 		/**
@@ -183,10 +173,10 @@ export const Popover = component$(
 		 * and apply CSS classes to show and hide the Popover Content
 		 */
 		useVisibleTask$(({ track }) => {
-			track(() => contextService.open)
+			track(() => contextService.openSig.value)
 			if (!triggerRef.value || !contentRef.value) return
 
-			if (contextService.open) {
+			if (contextService.openSig.value) {
 				openPopover()
 			} else {
 				closePopover()

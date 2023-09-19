@@ -162,9 +162,11 @@ export const MainPage = component$(() => {
 				</button>
 			</div>
 			<Popover.Root>
-				<Popover.Content>
-					<div class="bg-red-500">WOWZIEZ</div>
-				</Popover.Content>
+				<Popover.Portal>
+					<Popover.Content>
+						<div class="bg-red-500">WOWZIEZ</div>
+					</Popover.Content>
+				</Popover.Portal>
 				<Popover.Trigger>
 					<button
 						type="button"
